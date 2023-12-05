@@ -1,9 +1,11 @@
 import { LatestNewsComponent, NewsComponent } from "../components/NewsCard";
+import { useAppSelector } from "../hooks/reduxHooks";
 import useNewsModal from "../hooks/useNewsModal";
 
 //! News Page Component
 
 const News = () => {
+  const isAdmin = useAppSelector((state) => state.profile.currentUser?.isAdmin);
   // Modal Hook
   const newsModal = useNewsModal();
 
@@ -26,12 +28,14 @@ const News = () => {
         </div>
 
         {/* Button */}
-        <button
-          className="border border-accent px-4 py-2 cursor-pointer text-accent hover:bg-accent hover:text-white transition-all duration-300 ease-in-out"
-          onClick={handleOpen}
-        >
-          Add New News Article
-        </button>
+        {isAdmin && (
+          <button
+            className="border border-accent px-4 py-2 cursor-pointer text-accent hover:bg-accent hover:text-white transition-all duration-300 ease-in-out"
+            onClick={handleOpen}
+          >
+            Add New News Article
+          </button>
+        )}
       </div>
 
       {/* Card Component */}

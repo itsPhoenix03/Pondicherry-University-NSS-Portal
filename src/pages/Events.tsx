@@ -1,8 +1,11 @@
 import EventCard from "../components/EventCard";
+import { useAppSelector } from "../hooks/reduxHooks";
 import useEventModal from "../hooks/useEventModal";
 
 //! Events Page Component
 const Events = () => {
+  const isAdmin = useAppSelector((state) => state.profile.currentUser?.isAdmin);
+
   // Modal Hook
   const eventModal = useEventModal();
 
@@ -25,12 +28,14 @@ const Events = () => {
         </div>
 
         {/* Button */}
-        <button
-          className="border border-accent px-4 py-2 cursor-pointer text-accent hover:bg-accent hover:text-white transition-all duration-300 ease-in-out"
-          onClick={handleOpen}
-        >
-          Add New Event
-        </button>
+        {isAdmin && (
+          <button
+            className="border border-accent px-4 py-2 cursor-pointer text-accent hover:bg-accent hover:text-white transition-all duration-300 ease-in-out"
+            onClick={handleOpen}
+          >
+            Add New Event
+          </button>
+        )}
       </div>
 
       {/* Events List Component */}

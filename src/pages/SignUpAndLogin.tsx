@@ -1,6 +1,8 @@
 import { useState } from "react";
 import loginSvg from "../assets/svgs/login.svg";
-
+import { useAppSelector } from "../hooks/reduxHooks";
+import { IoWarningOutline } from "react-icons/io5";
+import { AiOutlineExclamationCircle } from "react-icons/ai";
 // Type
 
 type loginObjType = {
@@ -70,10 +72,18 @@ const LoginComponent: React.FC = () => {
 //! Sign and Login Wrapper Component
 
 const SignUpAndLogin = () => {
+  const registrationLinkStatus = useAppSelector(
+    (state) => state.registrationLink.isOpened
+  );
+
+  const Icon = registrationLinkStatus
+    ? AiOutlineExclamationCircle
+    : IoWarningOutline;
+
   return (
     <section className="flex justify-center items-center gap-4 px-4 py-2 mt-4">
       <div className="w-1/2 ">
-        <img src={loginSvg} alt="NSS Logo" />
+        <img src={loginSvg} alt="NSS Logo" className="" />
       </div>
 
       <div className="w-1/3 flex flex-col justify-center items-start gap-4">
@@ -83,18 +93,36 @@ const SignUpAndLogin = () => {
 
         <LoginComponent />
 
-        <div className="w-full text-end px-4 py-2">
-          <span>
-            New Registration{" "}
-            <a
-              href="https://forms.gle/htY1EpPMbJzgxdGV8"
-              target="_blank"
-              className="text-primary hover:underline underline-offset-[5px] cursor-pointer"
-            >
-              Sign Up
-            </a>{" "}
-            here!
-          </span>
+        <div
+          className={`w-full text-start px-4 py-2 mt-4 ${
+            registrationLinkStatus
+              ? "border border-accent bg-accent/5"
+              : " border border-rose-400 bg-rose-400/10"
+          } flex justify-between items-center gap-4`}
+        >
+          <Icon
+            color={registrationLinkStatus ? "#fabc2a" : "#fb7185"}
+            fontSize={"3rem"}
+            className="h-full"
+          />
+          {registrationLinkStatus ? (
+            <span className="text-black/75">
+              New Registration are currently opened, so Register yourself
+              through this{" "}
+              <a
+                href="https://forms.gle/htY1EpPMbJzgxdGV8"
+                target="_blank"
+                className="text-accent hover:underline underline-offset-[5px] cursor-pointer"
+              >
+                link
+              </a>{" "}
+              here!
+            </span>
+          ) : (
+            <span className="text-rose-400">
+              Registrations for NSS are currently been closed!
+            </span>
+          )}
         </div>
       </div>
     </section>

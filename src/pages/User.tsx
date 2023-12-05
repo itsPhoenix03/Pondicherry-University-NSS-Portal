@@ -1,5 +1,8 @@
 import React from "react";
 import DetailsDisplayComponent from "../components/UserComponents/DetailsDisplayComponent";
+import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
+import { login } from "../redux/API Calls/userAPICalls";
+import { changeStatus } from "../redux/slices/registrationLinkSlice";
 
 export type UserComponentProps = {
   image: string;
@@ -17,6 +20,7 @@ export type UserComponentProps = {
   permanentAddress: string;
   fatherName: string;
   motherName: string;
+  isAdmin: boolean;
 };
 
 const UserComponent: React.FC<UserComponentProps> = ({
@@ -94,10 +98,67 @@ const dummyUser: UserComponentProps = {
   permanentAddress: "456 Park Ave, Townsville",
   fatherName: "Robert Doe",
   motherName: "Mary Doe",
+  isAdmin: true,
+};
+
+const AdminComponent = () => {
+  const registrationLinkStatus = useAppSelector(
+    (state) => state.registrationLink.isOpened
+  );
+  const dispatch = useAppDispatch();
+
+  return (
+    <div className="mt-8">
+      <h5 className="text-primary text-3xl font-semibold">
+        Welcome, Pondicherry University NSS Admin
+      </h5>
+
+      <div className="mt-8">
+        <p className="text-lg font-semibold text-neutral-700">
+          Registration Open/Close Button
+        </p>
+
+        <div className="flex justify-between items-center gap-4 p-4">
+          <span>
+            Current Status of Registration:{" "}
+            <span
+              className={`${
+                registrationLinkStatus ? "text-green-500" : "text-rose-400"
+              } font-semibold`}
+            >
+              {registrationLinkStatus ? "Open" : "Close"}
+            </span>
+          </span>
+          <button
+            onClick={() => dispatch(changeStatus())}
+            className={`border bg-transparent ${
+              registrationLinkStatus
+                ? "border-rose-400 text-rose-400"
+                : "border-green-500 text-green-500"
+            } px-2 py-2 cursor-pointer`}
+          >
+            {registrationLinkStatus ? "Close" : "Open"} Registration
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 const User = () => {
-  return <UserComponent {...dummyUser} />;
+  const currentUser = useAppSelector((state) => state.profile.currentUser);
+  const dispatch = useAppDispatch();
+
+  login(dispatch, dummyUser);
+
+  if (!currentUser) return <h1>Null User</h1>;
+
+  console.log(currentUser);
+  return currentUser.isAdmin ? (
+    <AdminComponent />
+  ) : (
+    <UserComponent {...currentUser} />
+  );
 };
 
 export default User;
