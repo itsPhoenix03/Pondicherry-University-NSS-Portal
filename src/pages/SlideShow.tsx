@@ -4,10 +4,14 @@ import img from "../assets/bg-pic.jpg";
 import img1 from "../assets/ss-1.jpg";
 import img2 from "../assets/ss-2.png";
 import img3 from "../assets/ss-3.png";
+import { useNavigate } from "react-router-dom";
 
 //! Slideshow Component
 
 const SlideShow = () => {
+  // Navigate Hook
+  const navigate = useNavigate();
+
   // Images Array for slideshow
   const images: string[] = [img, img1, img2, img3];
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -46,6 +50,14 @@ const SlideShow = () => {
           />
         </motion.div>
       </AnimatePresence>
+
+      <button
+        onClick={() => navigate("/events")}
+        className="px-6 py-4 bg-accent text-white font-semibold text-lg cursor-pointer absolute bottom-[5rem] right-0 hover:bg-primary
+              transition-all duration-300 ease-in-out"
+      >
+        Go to Pondicherry University NSS Portal
+      </button>
     </div>
   );
 };

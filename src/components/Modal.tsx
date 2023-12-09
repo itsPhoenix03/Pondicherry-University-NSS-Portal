@@ -71,7 +71,7 @@ const Modal: React.FC<ModalProps> = ({
             {/* Footer */}
             <div className="p-4 w-full flex justify-end items-center gap-4">
               <button
-                className="border border-accent bg-transparent text-accent px-4 py-2 hover:bg-accent hover:text-white transition-all duration-300 ease-in-out w-auto font-semibold text-sm"
+                className="border border-accent bg-transparent text-accent px-6 py-2 rounded-full hover:bg-accent hover:text-white transition-all duration-300 ease-in-out w-auto font-semibold text-sm"
                 onClick={handleSubmit}
               >
                 {actionLabel}

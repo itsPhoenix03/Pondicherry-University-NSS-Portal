@@ -1,10 +1,24 @@
+import { useEffect } from "react";
 import EventCard from "../components/EventCard";
-import { useAppSelector } from "../hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 import useEventModal from "../hooks/useEventModal";
+import { fetchAllEvents } from "../redux/API Calls/eventsAPICalls";
 
 //! Events Page Component
 const Events = () => {
+  // Dispatch
+  const dispatch = useAppDispatch();
+
+  // Finding current user is admin or not
   const isAdmin = useAppSelector((state) => state.profile.currentUser?.isAdmin);
+
+  // All the events
+  const events = useAppSelector((state) => state.events.events);
+
+  //Fetch all events
+  useEffect(() => {
+    fetchAllEvents(dispatch);
+  });
 
   // Modal Hook
   const eventModal = useEventModal();
@@ -30,7 +44,7 @@ const Events = () => {
         {/* Button */}
         {isAdmin && (
           <button
-            className="border border-accent px-4 py-2 cursor-pointer text-accent hover:bg-accent hover:text-white transition-all duration-300 ease-in-out"
+            className="border border-accent px-6 py-2 cursor-pointer text-accent hover:bg-accent hover:text-white transition-all duration-300 ease-in-out rounded-full"
             onClick={handleOpen}
           >
             Add New Event
@@ -40,9 +54,14 @@ const Events = () => {
 
       {/* Events List Component */}
       <div className="grid grid-cols-3 gap-4 mt-10">
-        <EventCard />
-        <EventCard />
-        <EventCard />
+        {events.map((event) => (
+          <EventCard
+            key={event._id}
+            dispatch={dispatch}
+            isAdmin={isAdmin}
+            {...event}
+          />
+        ))}
       </div>
     </section>
   );

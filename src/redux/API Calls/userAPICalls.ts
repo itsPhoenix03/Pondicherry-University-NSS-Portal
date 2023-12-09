@@ -1,24 +1,28 @@
-import { UserComponentProps } from "../../pages/User";
+import { publicRequest } from "../../requestMethods";
+
 import {
-  getUserSuccess,
   userFailure,
   userFetching,
   userLoginSuccess,
 } from "../slices/profileSlice";
 import { AppDispatch } from "../store";
 
-export const login = async (
-  dispatch: AppDispatch,
-  user: UserComponentProps
-) => {
+// Type
+type UserProps = {
+  email: string;
+  password: string;
+};
+
+export const login = async (dispatch: AppDispatch, user: UserProps) => {
   //axios call
   dispatch(userFetching());
 
   try {
-    // Dummy data
-    const res = user;
+    // Fetching data
+    const res = await publicRequest.post("auth/login", user);
 
-    dispatch(userLoginSuccess(res));
+    // Success and returning the data
+    dispatch(userLoginSuccess(res.data));
   } catch (error) {
     dispatch(userFailure());
   }

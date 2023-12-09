@@ -1,38 +1,35 @@
 import { useState } from "react";
 import useEventModal from "../hooks/useEventModal";
 import Modal from "./Modal";
-
-//Type for Event Object
-type newEventObj = {
-  title: string;
-  tags: string[];
-  description: string;
-  date: string;
-  location: string;
-  timing: string;
-};
+import { EventType } from "../types";
+import { addEvent } from "../redux/API Calls/eventsAPICalls";
+import { useAppDispatch } from "../hooks/reduxHooks";
 
 // DEFAULT OBJECT FOR STATE
-const DEFAULT_EVENT_OBJ: newEventObj = {
-  title: "",
-  tags: [],
+const DEFAULT_EVENT_OBJ: EventType = {
+  event_name: "",
   description: "",
-  date: "",
-  location: "",
-  timing: "",
+  tags: [],
+  event_date: "",
+  event_location: "",
+  event_time: "",
 };
 
 //! Event Modal Component
 
 const EventModal = () => {
+  // Dispatch
+  const dispatch = useAppDispatch();
+
   const eventModal = useEventModal();
 
   // State to maintain the event object
-  const [newEvent, setNewEvent] = useState<newEventObj>(DEFAULT_EVENT_OBJ);
+  const [newEvent, setNewEvent] = useState<EventType>(DEFAULT_EVENT_OBJ);
 
   //TODO Submit function for New Event Addition
 
   const handleSubmit = () => {
+    console.log(newEvent);
     // Check for the object that any input is not empty string or empty array
     if (
       !Object.values(newEvent).every((value) =>
@@ -50,9 +47,8 @@ const EventModal = () => {
     )
       return;
 
-    //TODO submit functionality
-
-    console.log(newEvent);
+    // submit functionality
+    addEvent(dispatch, newEvent);
     setNewEvent(DEFAULT_EVENT_OBJ);
 
     eventModal.onClose();
@@ -62,7 +58,7 @@ const EventModal = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     // Check for tags and then changing them to the array of tags
     if (e.target.name === "tags") {
-      const tagsArr = e.target.value.split(",");
+      const tagsArr = e.target.value.split(",").map((t) => t.trim());
 
       setNewEvent({
         ...newEvent,
@@ -80,10 +76,10 @@ const EventModal = () => {
     <div className="grid grid-cols-2 gap-4">
       <input
         type="text"
-        name="title"
+        name="event_name"
         className="w-full text-sm px-4 py-2 outline-none border-b border-b-neutral-500 focus:border-b-primaryDark focus:text-primary focus:placeholder:text-primary/50"
         onChange={handleChange}
-        placeholder="Enter the NSS Event Title"
+        placeholder="Enter the NSS Event Name"
       />
       <input
         type="text"
@@ -97,25 +93,25 @@ const EventModal = () => {
         name="description"
         className="w-full col-span-2 text-sm px-4 py-2 outline-none border-b border-b-neutral-500 focus:border-b-primaryDark focus:text-primary focus:placeholder:text-primary/50"
         onChange={handleChange}
-        placeholder="Enter the NSS Event Description (Short and Precise)"
+        placeholder="Enter the NSS Event Description (Short and Precise Max Limit: 50)"
       />
       <input
         type="text"
-        name="date"
+        name="event_date"
         className="w-full text-sm px-4 py-2 outline-none border-b border-b-neutral-500 focus:border-b-primaryDark focus:text-primary focus:placeholder:text-primary/50"
         onChange={handleChange}
         placeholder="Enter the Date when Event is going to happen"
       />
       <input
         type="text"
-        name="location"
+        name="event_location"
         className="w-full text-sm px-4 py-2 outline-none border-b border-b-neutral-500 focus:border-b-primaryDark focus:text-primary focus:placeholder:text-primary/50"
         onChange={handleChange}
         placeholder="Enter the NSS Event Location"
       />
       <input
         type="text"
-        name="timing"
+        name="event_time"
         className="w-full text-sm px-4 py-2 outline-none border-b border-b-neutral-500 focus:border-b-primaryDark focus:text-primary focus:placeholder:text-primary/50"
         onChange={handleChange}
         placeholder="Enter the Timing of the Event"

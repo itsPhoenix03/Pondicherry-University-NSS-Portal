@@ -1,21 +1,32 @@
 import { useState } from "react";
 import loginSvg from "../assets/svgs/login.svg";
-import { useAppSelector } from "../hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 import { IoWarningOutline } from "react-icons/io5";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
+import { login } from "../redux/API Calls/userAPICalls";
+import { Navigate } from "react-router-dom";
 // Type
 
 type loginObjType = {
-  registrationNumber: "";
+  email: "";
   password: "";
 };
 
 //! Login Component
 
 const LoginComponent: React.FC = () => {
+  // Current User Not Null
+  const isCurrentUserAvailable = useAppSelector(
+    (state) => state.profile.currentUser
+  )
+    ? true
+    : false;
+  // Dispatch
+  const dispatch = useAppDispatch();
+
   // State for managing the form object
   const [loginObj, setLoginObj] = useState<loginObjType>({
-    registrationNumber: "",
+    email: "",
     password: "",
   });
 
@@ -26,8 +37,6 @@ const LoginComponent: React.FC = () => {
       ...loginObj,
       [e.target.name]: e.target.value,
     });
-
-    console.log("change func: " + loginObj);
   };
 
   // On Submit function for form
@@ -35,8 +44,11 @@ const LoginComponent: React.FC = () => {
     // Prevent the refreshing of the page
     e.preventDefault();
 
-    console.log(loginObj);
+    // Fire the login api call
+    login(dispatch, { ...loginObj });
   };
+
+  if (isCurrentUserAvailable) return <Navigate to={"/user/:userId"} replace />;
 
   return (
     <form
@@ -45,9 +57,9 @@ const LoginComponent: React.FC = () => {
     >
       <input
         type="text"
-        name="registrationNumber"
+        name="email"
         onChange={handleChange}
-        placeholder="Enter your Registration Number"
+        placeholder="Enter your Registered Email Id"
         className="w-full py-2 px-4 outline-none border-b-[1px] border-b-neutral-200 focus:border-b-primary transition-[border-bottom] duration-300 ease-in-out text-sm"
       />
 
@@ -88,7 +100,8 @@ const SignUpAndLogin = () => {
 
       <div className="w-1/3 flex flex-col justify-center items-start gap-4">
         <h5 className="text-2xl font-semibold text-primary">
-          Login NSS Student
+          Login for Pondicherry University{" "}
+          <span className="text-accent">NSS Candidate</span>
         </h5>
 
         <LoginComponent />
@@ -98,7 +111,7 @@ const SignUpAndLogin = () => {
             registrationLinkStatus
               ? "border border-accent bg-accent/5"
               : " border border-rose-400 bg-rose-400/10"
-          } flex justify-between items-center gap-4`}
+          } rounded-xl flex justify-between items-center gap-4`}
         >
           <Icon
             color={registrationLinkStatus ? "#fabc2a" : "#fb7185"}

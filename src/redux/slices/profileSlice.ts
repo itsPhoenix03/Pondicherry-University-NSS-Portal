@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { UserComponentProps } from "../../pages/User";
+import { UserType } from "../../types";
 
 type InitialStateType = {
-  currentUser: null | UserComponentProps;
+  currentUser: null | UserType;
   isFetching: boolean;
   isError: boolean;
 };
@@ -20,7 +20,7 @@ const profileSlice = createSlice({
     userFetching: (state) => {
       state.isFetching = true;
     },
-    userLoginSuccess: (state, action: PayloadAction<UserComponentProps>) => {
+    userLoginSuccess: (state, action: PayloadAction<UserType>) => {
       state.isFetching = false;
       state.isError = false;
       state.currentUser = action.payload;
@@ -30,10 +30,6 @@ const profileSlice = createSlice({
       state.isError = false;
       state.currentUser = null;
     },
-    getUserSuccess: (state) => {
-      state.isFetching = false;
-      state.isError = false;
-    },
     userFailure: (state) => {
       state.isFetching = false;
       state.isError = true;
@@ -41,12 +37,7 @@ const profileSlice = createSlice({
   },
 });
 
-export const {
-  userFetching,
-  getUserSuccess,
-  logout,
-  userFailure,
-  userLoginSuccess,
-} = profileSlice.actions;
+export const { userFetching, logout, userFailure, userLoginSuccess } =
+  profileSlice.actions;
 
 export default profileSlice.reducer;
