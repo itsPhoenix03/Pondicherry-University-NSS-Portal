@@ -1,11 +1,30 @@
+import { useEffect } from "react";
 import { LatestNewsComponent, NewsComponent } from "../components/NewsCard";
-import { useAppSelector } from "../hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 import useNewsModal from "../hooks/useNewsModal";
+import { fetchAllNews } from "../redux/API Calls/newsAPICalls";
 
 //! News Page Component
 
 const News = () => {
+  // Dispatch
+  const dispatch = useAppDispatch();
+
+  // Finding curren user is Admin or not
   const isAdmin = useAppSelector((state) => state.profile.currentUser?.isAdmin);
+
+  // All the news article
+  const allNews = useAppSelector((state) => state.news.allNews);
+
+  const latestNews = allNews.slice(0, 1)[0];
+  const restAllNews = allNews.slice(1, allNews.length);
+
+  // Fetch all news articles
+  useEffect(() => {
+    fetchAllNews(dispatch);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   // Modal Hook
   const newsModal = useNewsModal();
 
@@ -30,7 +49,7 @@ const News = () => {
         {/* Button */}
         {isAdmin && (
           <button
-            className="border border-accent px-4 py-2 cursor-pointer text-accent hover:bg-accent hover:text-white transition-all duration-300 ease-in-out"
+            className="border border-accent px-6 py-2 rounded-full cursor-pointer text-accent hover:bg-accent hover:text-white transition-all duration-300 ease-in-out"
             onClick={handleOpen}
           >
             Add New News Article
@@ -40,15 +59,11 @@ const News = () => {
 
       {/* Card Component */}
       <div className="mt-10 grid grid-cols-3 gap-4">
-        <LatestNewsComponent />
+        <LatestNewsComponent {...latestNews} />
 
-        <NewsComponent />
-        <NewsComponent />
-        <NewsComponent />
-        <NewsComponent />
-        <NewsComponent />
-        <NewsComponent />
-        <NewsComponent />
+        {restAllNews.map((news) => (
+          <NewsComponent key={news._id} {...news} />
+        ))}
       </div>
     </section>
   );

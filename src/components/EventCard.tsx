@@ -45,7 +45,7 @@ const EventCard: React.FC<EventType & EventCardProps> = ({
             </h6>
 
             {/* Date Sticker */}
-            <div className="absolute top-6 -right-2 flex justify-center items-center gap-1 bg-accent text-white px-4 py-2">
+            <div className="absolute top-1 -right-2 flex justify-center items-center gap-1 bg-accent text-white px-4 py-2">
               <span className="text-sm font-semibold">{e_date[0]}</span>
               <span className="text-sm font-semibold">
                 {e_date[1].slice(0, 3)}

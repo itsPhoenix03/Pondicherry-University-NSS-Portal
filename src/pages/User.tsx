@@ -6,7 +6,12 @@ import { logout } from "../redux/slices/profileSlice";
 import { Navigate } from "react-router-dom";
 import { UserType } from "../types";
 
-const UserComponent: React.FC<UserType> = ({
+// Type
+type UserComponentPorps = {
+  handleLogout: (_id: string) => void;
+};
+
+const UserComponent: React.FC<UserType & UserComponentPorps> = ({
   _id,
   image,
   name,
@@ -23,13 +28,8 @@ const UserComponent: React.FC<UserType> = ({
   permanentAddress,
   fatherName,
   motherName,
+  handleLogout,
 }) => {
-  const dispatch = useAppDispatch();
-
-  const handleLogout = () => {
-    if (_id) dispatch(logout());
-  };
-
   return (
     <>
       <div className="flex justify-evenly items-center gap-4 w-full mx-auto mt-8">
@@ -70,8 +70,8 @@ const UserComponent: React.FC<UserType> = ({
         </div>
       </div>
       <button
-        onClick={handleLogout}
-        className="border border-rose-400 bg-transparent text-rose-400 py-2 px-4 font-semibold ml-[90%] hover:bg-rose-400 hover:text-white transition-all duration-300 ease-in-out"
+        onClick={() => handleLogout(_id)}
+        className="border border-rose-400 bg-transparent text-rose-400 py-2 px-6 rounded-full font-semibold ml-[90%] hover:bg-rose-400 hover:text-white transition-all duration-300 ease-in-out"
       >
         Logout
       </button>
@@ -79,7 +79,16 @@ const UserComponent: React.FC<UserType> = ({
   );
 };
 
-const AdminComponent = () => {
+// Type
+type AdminComponentProps = {
+  handleLogout: (_id: string) => void;
+  id: string;
+};
+
+const AdminComponent: React.FC<AdminComponentProps> = ({
+  handleLogout,
+  id,
+}) => {
   const registrationLinkStatus = useAppSelector(
     (state) => state.registrationLink.isOpened
   );
@@ -118,21 +127,34 @@ const AdminComponent = () => {
             {registrationLinkStatus ? "Close" : "Open"} Registration
           </button>
         </div>
+
+        <button
+          onClick={() => handleLogout(id)}
+          className="border border-rose-400 bg-transparent text-rose-400 py-2 px-6 rounded-full font-semibold ml-[90%] hover:bg-rose-400 hover:text-white transition-all duration-300 ease-in-out"
+        >
+          Logout
+        </button>
       </div>
     </div>
   );
 };
 
 const User = () => {
+  const dispatch = useAppDispatch();
+
+  const handleLogout = (_id: string) => {
+    if (_id) dispatch(logout());
+  };
+
   const currentUser = useAppSelector((state) => state.profile.currentUser);
 
   if (!currentUser) return <Navigate to="/auth" replace />;
 
   console.log(currentUser);
   return currentUser.isAdmin ? (
-    <AdminComponent />
+    <AdminComponent handleLogout={handleLogout} id={currentUser._id} />
   ) : (
-    <UserComponent {...currentUser} />
+    <UserComponent handleLogout={handleLogout} {...currentUser} />
   );
 };
 

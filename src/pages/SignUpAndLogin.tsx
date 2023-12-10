@@ -16,11 +16,9 @@ type loginObjType = {
 
 const LoginComponent: React.FC = () => {
   // Current User Not Null
-  const isCurrentUserAvailable = useAppSelector(
-    (state) => state.profile.currentUser
-  )
-    ? true
-    : false;
+  const currentUser = useAppSelector((state) => state.profile.currentUser);
+  const isCurrentUserAvailable = currentUser ? true : false;
+
   // Dispatch
   const dispatch = useAppDispatch();
 
@@ -44,11 +42,15 @@ const LoginComponent: React.FC = () => {
     // Prevent the refreshing of the page
     e.preventDefault();
 
-    // Fire the login api call
-    login(dispatch, { ...loginObj });
+    // Check so that admin don't fire the login but can see the changes on login page
+    if (!isCurrentUserAvailable) {
+      // Fire the login api call
+      login(dispatch, { ...loginObj });
+    }
   };
 
-  if (isCurrentUserAvailable) return <Navigate to={"/user/:userId"} replace />;
+  if (isCurrentUserAvailable && !currentUser?.isAdmin)
+    return <Navigate to={"/user/:userId"} replace />;
 
   return (
     <form
@@ -107,19 +109,19 @@ const SignUpAndLogin = () => {
         <LoginComponent />
 
         <div
-          className={`w-full text-start px-4 py-2 mt-4 ${
+          className={`w-full relative text-start px-8 py-4 mt-4 ${
             registrationLinkStatus
               ? "border border-accent bg-accent/5"
-              : " border border-rose-400 bg-rose-400/10"
-          } rounded-xl flex justify-between items-center gap-4`}
+              : " border border-rose-400 bg-rose-400/5"
+          } rounded-xl`}
         >
           <Icon
             color={registrationLinkStatus ? "#fabc2a" : "#fb7185"}
-            fontSize={"3rem"}
-            className="h-full"
+            fontSize={"2rem"}
+            className="absolute top-4 left-2"
           />
           {registrationLinkStatus ? (
-            <span className="text-black/75">
+            <p className="text-black/75 text-center text-sm">
               New Registration are currently opened, so Register yourself
               through this{" "}
               <a
@@ -130,11 +132,11 @@ const SignUpAndLogin = () => {
                 link
               </a>{" "}
               here!
-            </span>
+            </p>
           ) : (
-            <span className="text-rose-400">
+            <p className="text-rose-400 text-center text-sm">
               Registrations for NSS are currently been closed!
-            </span>
+            </p>
           )}
         </div>
       </div>

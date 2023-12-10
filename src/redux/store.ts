@@ -13,6 +13,7 @@ import profileSlice from "./slices/profileSlice";
 import registrationLinkSlice from "./slices/registrationLinkSlice";
 import persistStore from "redux-persist/es/persistStore";
 import eventSlice from "./slices/eventSlice";
+import newsSlice from "./slices/newsSlice";
 
 // Persist Config
 const persistConfig = {
@@ -24,6 +25,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   profile: profileSlice,
   events: eventSlice,
+  news: newsSlice,
   registrationLink: registrationLinkSlice,
 });
 
