@@ -34,5 +34,5 @@ export type NewsType = {
   image: string;
   article_abstract: string;
   article: string;
-  createdAt: string;
+  createdAt?: string;
 };

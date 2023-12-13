@@ -1,6 +1,15 @@
 import { useState } from "react";
 import useNewsModal from "../hooks/useNewsModal";
 import Modal from "./Modal";
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
+import app from "../firebase";
+import { useAppDispatch } from "../hooks/reduxHooks";
+import { addNews } from "../redux/API Calls/newsAPICalls";
 
 //Type for News Article Object
 type newNewsArticleObj = {
@@ -28,6 +37,9 @@ const NewsModal = () => {
     ...DEFAULT_ARTICLE_OBJ,
   });
 
+  // Dispatch
+  const dispatch = useAppDispatch();
+
   //TODO Submit function for New News Article Addition
 
   const handleSubmit = () => {
@@ -35,8 +47,8 @@ const NewsModal = () => {
     if (!Object.values(newNewsArticle).every((value) => value !== "")) return;
 
     //TODO submit functionality
+    addNews(dispatch, newNewsArticle);
 
-    console.log(newNewsArticle);
     setNewNewsArticle(DEFAULT_ARTICLE_OBJ);
 
     newsModal.onClose();
@@ -51,6 +63,64 @@ const NewsModal = () => {
       ...newNewsArticle,
       [e.target.name]: e.target.value,
     });
+  };
+
+  // Handle image upload
+  const handleImageUpload = async (file: File) => {
+    // ||||||||||||||||||||||||||||||||||||||||||||||||||
+
+    try {
+      if (file) {
+        const fileName = new Date().getTime() + file.name;
+
+        const storage = getStorage(app);
+        const storageRef = ref(storage, `news/${fileName}`);
+
+        const uploadTask = uploadBytesResumable(storageRef, file);
+
+        await uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+            // const progressPercentage = Math.round(
+            //   (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            // );
+            // setProgress(`Upload is ${progressPercentage}% done`);
+            // console.log("Upload is " + progress + "% done");
+
+            switch (snapshot.state) {
+              case "paused":
+                console.log("Upload is paused");
+                break;
+              case "running":
+                console.log("Upload is running");
+                break;
+              default:
+                console.log("default");
+            }
+          },
+          (error) => {
+            // Handle unsuccessful uploads
+            console.log(error.message);
+          },
+          () => {
+            // Handle successful uploads on complete
+            // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+            getDownloadURL(uploadTask.snapshot.ref).then(
+              async (downloadURL) => {
+                setNewNewsArticle((p) => ({
+                  ...p,
+                  image: downloadURL,
+                }));
+              }
+            );
+          }
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
+    // ||||||||||||||||||||||||||||||||||||||||||||||||||
   };
 
   const bodyContent = (
@@ -68,7 +138,9 @@ const NewsModal = () => {
         accept="image/*"
         name="image"
         className="inp w-full text-sm px-4 py-2 outline-none border-b border-b-neutral-500 focus:border-b-primaryDark focus:text-primary focus:placeholder:text-primary/50"
-        onChange={handleChange}
+        onChange={(e) => {
+          if (e.target.files) handleImageUpload(e.target.files[0]);
+        }}
         placeholder=""
       />
 
