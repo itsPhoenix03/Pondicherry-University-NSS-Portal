@@ -1,4 +1,5 @@
 import { publicRequest } from "../../requestMethods";
+import { UserType } from "../../types";
 
 import {
   userFailure,
@@ -14,7 +15,7 @@ type UserProps = {
 };
 
 export const login = async (dispatch: AppDispatch, user: UserProps) => {
-  //axios call
+  // axios call
   dispatch(userFetching());
 
   try {
@@ -23,6 +24,28 @@ export const login = async (dispatch: AppDispatch, user: UserProps) => {
 
     // Success and returning the data
     dispatch(userLoginSuccess(res.data));
+  } catch (error) {
+    dispatch(userFailure());
+  }
+};
+
+export const update = async (
+  dispatch: AppDispatch,
+  updateUserProps: object,
+  user: UserType
+) => {
+  // axios call
+  dispatch(userFetching());
+
+  try {
+    // Update User request
+    await publicRequest.patch(`candidate/${user._id}`, {
+      ...updateUserProps,
+      _id: user._id,
+    });
+
+    // Success and returning the data
+    dispatch(userLoginSuccess({ ...user, ...updateUserProps }));
   } catch (error) {
     dispatch(userFailure());
   }

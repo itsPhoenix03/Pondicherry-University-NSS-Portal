@@ -5,6 +5,9 @@ import { changeStatus } from "../redux/slices/registrationLinkSlice";
 import { logout } from "../redux/slices/profileSlice";
 import { Navigate } from "react-router-dom";
 import { UserType } from "../types";
+import UpdateUser from "../components/UpdateUser";
+
+//! Candidate Component
 
 // Type
 type UserComponentPorps = {
@@ -28,13 +31,14 @@ const UserComponent: React.FC<UserType & UserComponentPorps> = ({
   permanentAddress,
   fatherName,
   motherName,
+  courseSession,
   handleLogout,
 }) => {
   return (
     <>
       <div className="flex justify-evenly items-center gap-4 w-full mx-auto mt-8">
         <div className="h-full p-2 relative">
-          <div className="h-[100%] w-[100%] skew-y-6 bg-accent absolute -top-0 left-0" />
+          <div className="h-[100%] w-[100%] skew-y-6 bg-accent/75 absolute -top-0 left-0" />
           <img
             src={image}
             alt={`${name}'s Image`}
@@ -43,9 +47,9 @@ const UserComponent: React.FC<UserType & UserComponentPorps> = ({
         </div>
         <div className="p-6 flex-auto grid grid-cols-3 gap-4">
           <div className="font-bold text-[2rem] mb-2 text-primary col-span-3">
+            <span className="text-accent">#</span>
             {name}
           </div>
-          {/* <div className="text-sm text-gray-600 mb-2">{email}</div> */}
           <DetailsDisplayComponent label="Email" value={email} />
           <DetailsDisplayComponent label="Mobile Number" value={mobileNumber} />
           <DetailsDisplayComponent label="Department" value={department} />
@@ -58,6 +62,10 @@ const UserComponent: React.FC<UserType & UserComponentPorps> = ({
           <DetailsDisplayComponent label="Cast Category" value={castCategory} />
           <DetailsDisplayComponent label="Native State" value={nativeState} />
           <DetailsDisplayComponent
+            label="Course Session"
+            value={courseSession}
+          />
+          <DetailsDisplayComponent
             label="Present Address"
             value={presentAddress}
             className="col-span-2"
@@ -69,6 +77,12 @@ const UserComponent: React.FC<UserType & UserComponentPorps> = ({
           />
         </div>
       </div>
+
+      {/* Update Details */}
+      <div className="w-full my-8">
+        <UpdateUser />
+      </div>
+
       <button
         onClick={() => handleLogout(_id)}
         className="border border-rose-400 bg-transparent text-rose-400 py-2 px-6 rounded-full font-semibold ml-[90%] hover:bg-rose-400 hover:text-white transition-all duration-300 ease-in-out"
@@ -78,6 +92,8 @@ const UserComponent: React.FC<UserType & UserComponentPorps> = ({
     </>
   );
 };
+
+//! Admin Component
 
 // Type
 type AdminComponentProps = {
@@ -139,6 +155,8 @@ const AdminComponent: React.FC<AdminComponentProps> = ({
   );
 };
 
+//! Main User Wrapper Component
+
 const User = () => {
   const dispatch = useAppDispatch();
 
@@ -150,7 +168,6 @@ const User = () => {
 
   if (!currentUser) return <Navigate to="/auth" replace />;
 
-  console.log(currentUser);
   return currentUser.isAdmin ? (
     <AdminComponent handleLogout={handleLogout} id={currentUser._id} />
   ) : (

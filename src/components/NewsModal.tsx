@@ -37,16 +37,19 @@ const NewsModal = () => {
     ...DEFAULT_ARTICLE_OBJ,
   });
 
+  // Handling the disable state
+  const [disable, setDisable] = useState(false);
+
   // Dispatch
   const dispatch = useAppDispatch();
 
-  //TODO Submit function for New News Article Addition
+  // Submit function for New News Article Addition
 
   const handleSubmit = () => {
     // Check for the object that any input is not empty string
     if (!Object.values(newNewsArticle).every((value) => value !== "")) return;
 
-    //TODO submit functionality
+    // submit functionality
     addNews(dispatch, newNewsArticle);
 
     setNewNewsArticle(DEFAULT_ARTICLE_OBJ);
@@ -69,6 +72,8 @@ const NewsModal = () => {
   const handleImageUpload = async (file: File) => {
     // ||||||||||||||||||||||||||||||||||||||||||||||||||
 
+    // Changing the disable state
+    setDisable(true);
     try {
       if (file) {
         const fileName = new Date().getTime() + file.name;
@@ -111,6 +116,9 @@ const NewsModal = () => {
                   ...p,
                   image: downloadURL,
                 }));
+
+                // Changing the disable state
+                setDisable(false);
               }
             );
           }
@@ -169,6 +177,7 @@ const NewsModal = () => {
       title="Create a New NSS Event Announcement"
       onClose={newsModal.onClose}
       onSubmit={handleSubmit}
+      disable={disable}
       bodyContent={bodyContent}
     />
   );

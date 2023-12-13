@@ -9,6 +9,7 @@ type ModalProps = {
   title?: string;
   bodyContent?: React.ReactElement;
   actionLabel: string;
+  disable?: boolean;
 };
 
 //! The basic Modal Component
@@ -20,6 +21,7 @@ const Modal: React.FC<ModalProps> = ({
   title,
   bodyContent,
   actionLabel,
+  disable,
 }) => {
   // State to control the opening and closing modal
   const [showModal, setShowModal] = useState(isOpen);
@@ -73,6 +75,7 @@ const Modal: React.FC<ModalProps> = ({
               <button
                 className="border border-accent bg-transparent text-accent px-6 py-2 rounded-full hover:bg-accent hover:text-white transition-all duration-300 ease-in-out w-auto font-semibold text-sm"
                 onClick={handleSubmit}
+                disabled={disable ? disable : false}
               >
                 {actionLabel}
               </button>

@@ -16,6 +16,7 @@ export type UserType = {
   fatherName: string;
   motherName: string;
   isAdmin: boolean;
+  courseSession: string;
 };
 
 export type EventType = {
