@@ -12,6 +12,7 @@ import {
 import app from "../firebase";
 import { update } from "../redux/API Calls/userAPICalls";
 import useUpdateUserModal from "../hooks/useUpdateUserModal";
+import UpdateUserModal from "./UpdateUserModal";
 
 const UpdateUser = () => {
   const updateUserModal = useUpdateUserModal();
@@ -34,7 +35,6 @@ const UpdateUser = () => {
       ...updateUser,
       [e.target.name]: e.target.value,
     });
-    console.log(updateUser);
   };
 
   // Handle image upload
@@ -110,147 +110,165 @@ const UpdateUser = () => {
 
     if (Object.keys(updateUser).length !== 0 && currentUser) {
       updateUserModal.onOpen();
-
-      setUpdateUser({});
       close();
     }
   };
 
+  const handleSubmit = () => {
+    // Adding the confirm password field to the object
+    const finalUpdateUser = {
+      ...updateUser,
+      confirmPassword: updateUserModal.confirmPassword,
+    };
+
+    if (currentUser) update(dispatch, finalUpdateUser, currentUser);
+
+    setUpdateUser({});
+    updateUserModal.onClose();
+  };
+
   if (currentUser)
     return (
-      <Disclosure>
-        {({ open, close }) => (
-          <>
-            <Disclosure.Button
-              className={`flex justify-between items-center gap-4 w-full`}
-            >
-              <div className="">
-                <h3 className="text-primary font-bold text-[1.5rem]">
-                  <span className="text-accent">#</span>&nbsp;Update Your
-                  Profile Information
-                </h3>
-                <p className="text-accent/75 text-[1rem]">
-                  Only fill the fields you want to change
-                </p>
-              </div>
+      <>
+        <UpdateUserModal
+          handleSubmit={handleSubmit}
+          setUpdatedUser={setUpdateUser}
+        />
+        <Disclosure>
+          {({ open, close }) => (
+            <>
+              <Disclosure.Button
+                className={`flex justify-between items-center gap-4 w-full`}
+              >
+                <div className="">
+                  <h3 className="text-primary font-bold text-[1.5rem]">
+                    <span className="text-accent">#</span>&nbsp;Update Your
+                    Profile Information
+                  </h3>
+                  <p className="text-accent/75 text-[1rem] text-start">
+                    Only fill the fields you want to change
+                  </p>
+                </div>
 
-              <IoChevronDownCircleOutline
-                color={"#FABC2A"}
-                size={"2rem"}
-                className={`transition-all duration-300 ease-in-out ${
-                  open ? "rotate-180" : "rotate-0"
-                }`}
-              />
-            </Disclosure.Button>
+                <IoChevronDownCircleOutline
+                  color={"#FABC2A"}
+                  size={"2rem"}
+                  className={`transition-all duration-300 ease-in-out ${
+                    open ? "rotate-180" : "rotate-0"
+                  }`}
+                />
+              </Disclosure.Button>
 
-            <Transition
-              enter="transition duration-300 ease-in delay-50"
-              enterFrom="transform -translate-y-50 opacity-0"
-              enterTo="transform translate-y-0 opacity-100"
-              leave="transition duration-300 ease-out delay-50"
-              leaveFrom="transform translate-y-0 opacity-100"
-              leaveTo="transform -translate-y-50 opacity-0"
-            >
-              <Disclosure.Panel className={``}>
-                <form
-                  onSubmit={(e) => handleFormSubmit(e, close)}
-                  className="my-8 grid grid-cols-3 gap-4"
-                >
-                  <input
-                    type="file"
-                    name="image"
-                    className="inp col-span-3"
-                    onChange={(e) => {
-                      if (e.target.files) handleImageUpload(e.target.files[0]);
-                    }}
-                  />
+              <Transition
+                enter="transition duration-300 ease-in delay-50"
+                enterFrom="transform -translate-y-50 opacity-0"
+                enterTo="transform translate-y-0 opacity-100"
+                leave="transition duration-300 ease-out delay-50"
+                leaveFrom="transform translate-y-0 opacity-100"
+                leaveTo="transform -translate-y-50 opacity-0"
+              >
+                <Disclosure.Panel className={``}>
+                  <form
+                    onSubmit={(e) => handleFormSubmit(e, close)}
+                    className="my-8 grid grid-cols-3 gap-4"
+                  >
+                    <input
+                      type="file"
+                      name="image"
+                      className="inp col-span-3"
+                      onChange={(e) => {
+                        if (e.target.files)
+                          handleImageUpload(e.target.files[0]);
+                      }}
+                    />
 
-                  <CustomInputField
-                    filedName="name"
-                    handleChange={handleChange}
-                    label="Update Your Name"
-                    placeholder={currentUser.name}
-                  />
-                  <CustomInputField
-                    filedName="email"
-                    handleChange={handleChange}
-                    label="Update Your Email Id"
-                    placeholder={currentUser.email}
-                  />
-                  <CustomInputField
-                    filedName="dateOfBirth"
-                    handleChange={handleChange}
-                    label="Update Your Date of Birth (Format:- yyyy-mm-dd)"
-                    placeholder={currentUser.dateOfBirth}
-                  />
-                  <CustomInputField
-                    filedName="fatherName"
-                    handleChange={handleChange}
-                    label="Update Your Father Name"
-                    placeholder={currentUser.fatherName}
-                  />
-                  <CustomInputField
-                    filedName="motherName"
-                    handleChange={handleChange}
-                    label="Update Your Mother Name"
-                    placeholder={currentUser.motherName}
-                  />
-                  <CustomInputField
-                    filedName="bloodGroup"
-                    handleChange={handleChange}
-                    label="Update Your Blood Group"
-                    placeholder={currentUser.bloodGroup}
-                  />
-                  <CustomInputField
-                    filedName="mobileNumber"
-                    handleChange={handleChange}
-                    label="Update Your Mobile Number"
-                    placeholder={currentUser.mobileNumber}
-                  />
-                  <CustomInputField
-                    filedName="nativeState"
-                    handleChange={handleChange}
-                    label="Update Your Native State"
-                    placeholder={currentUser.nativeState}
-                  />
-                  <CustomInputField
-                    filedName="presentAddress"
-                    handleChange={handleChange}
-                    label="Update Your Present Address"
-                    placeholder={currentUser.presentAddress}
-                    className="col-span-3"
-                  />
-                  <CustomInputField
-                    filedName="permanentAddress"
-                    handleChange={handleChange}
-                    label="Update Your Permanent Address"
-                    placeholder={currentUser.permanentAddress}
-                    className="col-span-3"
-                  />
+                    <CustomInputField
+                      filedName="name"
+                      handleChange={handleChange}
+                      label="Update Your Name"
+                      placeholder={currentUser.name}
+                    />
+                    <CustomInputField
+                      filedName="email"
+                      handleChange={handleChange}
+                      label="Update Your Email Id"
+                      placeholder={currentUser.email}
+                    />
+                    <CustomInputField
+                      filedName="dateOfBirth"
+                      handleChange={handleChange}
+                      label="Update Your Date of Birth (Format:- yyyy-mm-dd)"
+                      placeholder={currentUser.dateOfBirth}
+                    />
+                    <CustomInputField
+                      filedName="fatherName"
+                      handleChange={handleChange}
+                      label="Update Your Father Name"
+                      placeholder={currentUser.fatherName}
+                    />
+                    <CustomInputField
+                      filedName="motherName"
+                      handleChange={handleChange}
+                      label="Update Your Mother Name"
+                      placeholder={currentUser.motherName}
+                    />
+                    <CustomInputField
+                      filedName="bloodGroup"
+                      handleChange={handleChange}
+                      label="Update Your Blood Group"
+                      placeholder={currentUser.bloodGroup}
+                    />
+                    <CustomInputField
+                      filedName="mobileNumber"
+                      handleChange={handleChange}
+                      label="Update Your Mobile Number"
+                      placeholder={currentUser.mobileNumber}
+                    />
+                    <CustomInputField
+                      filedName="nativeState"
+                      handleChange={handleChange}
+                      label="Update Your Native State"
+                      placeholder={currentUser.nativeState}
+                    />
+                    <CustomInputField
+                      filedName="presentAddress"
+                      handleChange={handleChange}
+                      label="Update Your Present Address"
+                      placeholder={currentUser.presentAddress}
+                      className="col-span-3"
+                    />
+                    <CustomInputField
+                      filedName="permanentAddress"
+                      handleChange={handleChange}
+                      label="Update Your Permanent Address"
+                      placeholder={currentUser.permanentAddress}
+                      className="col-span-3"
+                    />
 
-                  <div className="mt-4 col-span-3 text-end">
-                    <button
-                      className="px-6 py-2 ml-4 rounded-full border border-primary/75 text-primary bg-transparent hover:bg-primary/10 hover:text-primary transition-all duration-300 ease-in-out"
-                      onClick={() => setUpdateUser({})}
-                      disabled={disable}
-                      type="reset"
-                    >
-                      Clear Fields
-                    </button>
-                    <button
-                      type="submit"
-                      className="px-6 py-2 mx-4 rounded-full font-semibold border border-accent text-accent bg-transparent hover:bg-accent/10 hover:text-accent transition-all duration-300 ease-in-out"
-                      disabled={disable}
-                    >
-                      Update Information
-                    </button>
-                  </div>
-                </form>
-              </Disclosure.Panel>
-            </Transition>
-          </>
-        )}
-      </Disclosure>
+                    <div className="mt-4 col-span-3 text-end">
+                      <button
+                        className="px-6 py-2 ml-4 rounded-full border border-primary/75 text-primary bg-transparent hover:bg-primary/10 hover:text-primary transition-all duration-300 ease-in-out"
+                        onClick={() => setUpdateUser({})}
+                        disabled={disable}
+                        type="reset"
+                      >
+                        Clear Fields
+                      </button>
+                      <button
+                        type="submit"
+                        className="px-6 py-2 mx-4 rounded-full font-semibold border border-accent text-accent bg-transparent hover:bg-accent/10 hover:text-accent transition-all duration-300 ease-in-out"
+                        disabled={disable}
+                      >
+                        Update Information
+                      </button>
+                    </div>
+                  </form>
+                </Disclosure.Panel>
+              </Transition>
+            </>
+          )}
+        </Disclosure>
+      </>
     );
 };
 

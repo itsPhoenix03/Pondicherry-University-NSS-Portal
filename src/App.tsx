@@ -6,7 +6,6 @@ import { Outlet, Link, useLocation } from "react-router-dom";
 import EventModal from "./components/EventModal";
 import NewsModal from "./components/NewsModal";
 import { useAppSelector } from "./hooks/reduxHooks";
-import UpdateUserModal from "./components/UpdateUserModal";
 
 //! Navbar Component
 
@@ -68,7 +67,6 @@ function App() {
     <>
       <EventModal />
       <NewsModal />
-      <UpdateUserModal />
       <main className="bg-background font-display">
         <HeaderNav />
         <MainNav />

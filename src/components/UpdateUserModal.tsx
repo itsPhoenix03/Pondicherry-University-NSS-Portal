@@ -1,21 +1,29 @@
-import { useState } from "react";
 import useUpdateUserModal from "../hooks/useUpdateUserModal";
 import Modal from "./Modal";
 
-const UpdateUserModal = () => {
+// Type
+type UpdateUserModalProps = {
+  handleSubmit: () => void;
+  setUpdatedUser: React.Dispatch<React.SetStateAction<object>>;
+};
+
+const UpdateUserModal: React.FC<UpdateUserModalProps> = ({
+  handleSubmit,
+  setUpdatedUser,
+}) => {
   const updateUserModal = useUpdateUserModal();
 
   //TODO: Check the Chatgpt and implement the  functionality
 
-  // State to track the confirm password
-  const [confirmPassword, setConfirmPassword] = useState("");
+  // Secondary Action
+  const secondaryAction = () => setUpdatedUser({});
 
   // Body Content
   const bodyContent = (
     <input
       type="text"
-      name="confirmPassowrd"
-      onChange={(e) => setConfirmPassword(e.target.value)}
+      name="confirmPassword"
+      onChange={(e) => updateUserModal.setConfirmPassword(e.target.value)}
       className="w-full border-b border-b-neutral-300 focus:border-b-primary px-4 py-2 outline-none"
       placeholder="Enter your profile password to update your profile"
     />
@@ -29,6 +37,8 @@ const UpdateUserModal = () => {
       onClose={updateUserModal.onClose}
       onSubmit={handleSubmit}
       bodyContent={bodyContent}
+      secondaryAction={secondaryAction}
+      secondaryActionPresent={true}
     />
   );
 };

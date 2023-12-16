@@ -10,6 +10,8 @@ type ModalProps = {
   bodyContent?: React.ReactElement;
   actionLabel: string;
   disable?: boolean;
+  secondaryActionPresent?: boolean;
+  secondaryAction?: () => void;
 };
 
 //! The basic Modal Component
@@ -22,6 +24,8 @@ const Modal: React.FC<ModalProps> = ({
   bodyContent,
   actionLabel,
   disable,
+  secondaryActionPresent = false,
+  secondaryAction,
 }) => {
   // State to control the opening and closing modal
   const [showModal, setShowModal] = useState(isOpen);
@@ -33,6 +37,7 @@ const Modal: React.FC<ModalProps> = ({
 
   // Handling closing of the modal
   const handleClose = () => {
+    if (secondaryActionPresent && secondaryAction) secondaryAction();
     setShowModal(false);
     setTimeout(() => {
       onClose();
