@@ -49,7 +49,7 @@ const LoginComponent: React.FC = () => {
     }
   };
 
-  if (isCurrentUserAvailable && !currentUser?.isAdmin)
+  if (isCurrentUserAvailable)
     return <Navigate to={`/user/${currentUser?._id}`} replace />;
 
   return (

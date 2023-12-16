@@ -7,6 +7,7 @@ import { Navigate } from "react-router-dom";
 import { UserType } from "../types";
 import UpdateUser from "../components/UpdateUser";
 import UserCertificates from "../components/UserComponents/UserCertificates";
+import UpdateAUser from "../components/AdminComponents/UpdateAUser";
 
 //! Candidate Component
 
@@ -148,6 +149,11 @@ const AdminComponent: React.FC<AdminComponentProps> = ({
           >
             {registrationLinkStatus ? "Close" : "Open"} Registration
           </button>
+        </div>
+
+        {/* Update a candidate information */}
+        <div className="w-full my-8">
+          <UpdateAUser />
         </div>
 
         <button

@@ -1,5 +1,4 @@
 import { Disclosure, Transition } from "@headlessui/react";
-import React from "react";
 import { IoChevronDownCircleOutline } from "react-icons/io5";
 
 const UserCertificates = () => {
