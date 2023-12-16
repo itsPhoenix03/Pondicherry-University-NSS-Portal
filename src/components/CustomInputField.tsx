@@ -4,7 +4,7 @@
 type CustomInputFieldProps = {
   label: string;
   placeholder: string;
-  filedName: string;
+  fieldName: string;
   className?: string;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
@@ -12,15 +12,15 @@ type CustomInputFieldProps = {
 const CustomInputField = ({
   label,
   placeholder,
-  filedName,
+  fieldName,
   className = "col-span-1",
   handleChange,
 }: CustomInputFieldProps) => (
   <div className={`w-full relative mt-4 ${className}`}>
     <input
-      type="text"
-      name={filedName}
-      id="name"
+      type={fieldName !== "password" ? "text" : "password"}
+      name={fieldName}
+      id={fieldName}
       placeholder={placeholder}
       className="peer placeholder:text-transparent bg-transparent focus:placeholder:text-primary/50 w-full px-4 py-2 outline-none border-b border-b-neutral-200 focus:border-b-accent/50 transition-all duration-300 ease-in-out"
       onChange={(e) => handleChange(e)}

@@ -48,7 +48,7 @@ const UpdateUser = () => {
         const fileName = new Date().getTime() + file.name;
 
         const storage = getStorage(app);
-        const storageRef = ref(storage, `news/${fileName}`);
+        const storageRef = ref(storage, `user/${fileName}`);
 
         const uploadTask = uploadBytesResumable(storageRef, file);
 
@@ -183,66 +183,72 @@ const UpdateUser = () => {
                     />
 
                     <CustomInputField
-                      filedName="name"
+                      fieldName="name"
                       handleChange={handleChange}
                       label="Update Your Name"
                       placeholder={currentUser.name}
                     />
                     <CustomInputField
-                      filedName="email"
+                      fieldName="email"
                       handleChange={handleChange}
                       label="Update Your Email Id"
                       placeholder={currentUser.email}
                     />
                     <CustomInputField
-                      filedName="dateOfBirth"
+                      fieldName="dateOfBirth"
                       handleChange={handleChange}
                       label="Update Your Date of Birth (Format:- yyyy-mm-dd)"
                       placeholder={currentUser.dateOfBirth}
                     />
                     <CustomInputField
-                      filedName="fatherName"
+                      fieldName="fatherName"
                       handleChange={handleChange}
                       label="Update Your Father Name"
                       placeholder={currentUser.fatherName}
                     />
                     <CustomInputField
-                      filedName="motherName"
+                      fieldName="motherName"
                       handleChange={handleChange}
                       label="Update Your Mother Name"
                       placeholder={currentUser.motherName}
                     />
                     <CustomInputField
-                      filedName="bloodGroup"
+                      fieldName="bloodGroup"
                       handleChange={handleChange}
                       label="Update Your Blood Group"
                       placeholder={currentUser.bloodGroup}
                     />
                     <CustomInputField
-                      filedName="mobileNumber"
+                      fieldName="mobileNumber"
                       handleChange={handleChange}
                       label="Update Your Mobile Number"
                       placeholder={currentUser.mobileNumber}
                     />
                     <CustomInputField
-                      filedName="nativeState"
+                      fieldName="nativeState"
                       handleChange={handleChange}
                       label="Update Your Native State"
                       placeholder={currentUser.nativeState}
                     />
                     <CustomInputField
-                      filedName="presentAddress"
+                      fieldName="presentAddress"
                       handleChange={handleChange}
                       label="Update Your Present Address"
                       placeholder={currentUser.presentAddress}
                       className="col-span-3"
                     />
                     <CustomInputField
-                      filedName="permanentAddress"
+                      fieldName="permanentAddress"
                       handleChange={handleChange}
                       label="Update Your Permanent Address"
                       placeholder={currentUser.permanentAddress}
                       className="col-span-3"
+                    />
+                    <CustomInputField
+                      fieldName="password"
+                      handleChange={handleChange}
+                      label="Change your password"
+                      placeholder={"Enter your new password here"}
                     />
 
                     <div className="mt-4 col-span-3 text-end">

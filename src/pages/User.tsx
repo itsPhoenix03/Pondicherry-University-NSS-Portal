@@ -6,6 +6,7 @@ import { logout } from "../redux/slices/profileSlice";
 import { Navigate } from "react-router-dom";
 import { UserType } from "../types";
 import UpdateUser from "../components/UpdateUser";
+import UserCertificates from "../components/UserComponents/UserCertificates";
 
 //! Candidate Component
 
@@ -81,6 +82,11 @@ const UserComponent: React.FC<UserType & UserComponentPorps> = ({
       {/* Update Details */}
       <div className="w-full my-8">
         <UpdateUser />
+      </div>
+
+      {/* Certificate Details */}
+      <div className="w-full my-8">
+        <UserCertificates />
       </div>
 
       <button
