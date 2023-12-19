@@ -14,6 +14,7 @@ import registrationLinkSlice from "./slices/registrationLinkSlice";
 import persistStore from "redux-persist/es/persistStore";
 import eventSlice from "./slices/eventSlice";
 import newsSlice from "./slices/newsSlice";
+import adminActionsSlice from "./slices/adminActionsSlice";
 
 // Persist Config
 const persistConfig = {
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   events: eventSlice,
   news: newsSlice,
   registrationLink: registrationLinkSlice,
+  adminAction: adminActionsSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

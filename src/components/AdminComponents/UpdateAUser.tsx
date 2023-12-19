@@ -10,7 +10,7 @@ import { IoChevronDownCircleOutline } from "react-icons/io5";
 import app from "../../firebase";
 import CustomInputField from "../CustomInputField";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
-import { adminCandidateUpdate } from "../../redux/API Calls/userAPICalls";
+import { adminCandidateUpdate } from "../../redux/API Calls/adminActionsAPICalls";
 
 const UpdateAUser = () => {
   const currentUserIsAdmin = useAppSelector(

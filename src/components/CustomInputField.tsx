@@ -6,6 +6,7 @@ type CustomInputFieldProps = {
   placeholder: string;
   fieldName: string;
   className?: string;
+  labelClassName?: string;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
 };
@@ -15,6 +16,7 @@ const CustomInputField = ({
   placeholder,
   fieldName,
   className = "col-span-1",
+  labelClassName = "",
   handleChange,
   required = false,
 }: CustomInputFieldProps) => (
@@ -29,8 +31,8 @@ const CustomInputField = ({
       required={required}
     />
     <label
-      htmlFor="name"
-      className="absolute text-xs left-0 ml-1 -z-10 text-primary/75 -translate-y-3 bg-transparent px-1 duration-100 ease-linear peer-placeholder-shown:translate-y-3 peer-placeholder-shown:text-sm peer-placeholder-shown:text-primary/75 peer-focus:ml-1 peer-focus:-translate-y-3 peer-focus:px-1 peer-focus:text-xs"
+      htmlFor={fieldName}
+      className={`absolute text-xs left-0 ml-1 -z-10 text-primary/75 -translate-y-3 bg-transparent px-1 duration-100 ease-linear peer-placeholder-shown:translate-y-3 peer-placeholder-shown:text-sm peer-placeholder-shown:text-primary/75 peer-focus:ml-1 peer-focus:-translate-y-3 peer-focus:px-1 peer-focus:text-xs ${labelClassName}`}
     >
       {label}
     </label>

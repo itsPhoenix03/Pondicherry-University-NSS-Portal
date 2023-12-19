@@ -50,23 +50,3 @@ export const update = async (
     dispatch(userFailure());
   }
 };
-
-export const adminCandidateUpdate = async (
-  dispatch: AppDispatch,
-  updateUserProps: object
-) => {
-  // axios call
-  dispatch(userFetching());
-
-  try {
-    // Update User request
-    await publicRequest.patch(`candidate/admin/update-candidate`, {
-      ...updateUserProps,
-    });
-
-    // Success and returning the data
-    // dispatch(userLoginSuccess({...updateUserProps }));
-  } catch (error) {
-    dispatch(userFailure());
-  }
-};

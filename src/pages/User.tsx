@@ -8,6 +8,8 @@ import { UserType } from "../types";
 import UpdateUser from "../components/UpdateUser";
 import UserCertificates from "../components/UserComponents/UserCertificates";
 import UpdateAUser from "../components/AdminComponents/UpdateAUser";
+import ControlPanel from "../components/AdminComponents/ControlPanel";
+import GetAUser from "../components/AdminComponents/GetAUser";
 
 //! Candidate Component
 
@@ -90,12 +92,14 @@ const UserComponent: React.FC<UserType & UserComponentPorps> = ({
         <UserCertificates />
       </div>
 
-      <button
-        onClick={() => handleLogout(_id)}
-        className="border border-rose-400 bg-transparent text-rose-400 py-2 px-6 rounded-full font-semibold ml-[90%] hover:bg-rose-400 hover:text-white transition-all duration-300 ease-in-out"
-      >
-        Logout
-      </button>
+      <div className="border-t border-t-rose-400/30 py-4 text-end">
+        <button
+          onClick={() => handleLogout(_id)}
+          className="border border-rose-400 bg-transparent text-rose-400 py-2 px-6 rounded-full font-semibold hover:bg-rose-400 hover:text-white transition-all duration-300 ease-in-out"
+        >
+          Logout from your account
+        </button>
+      </div>
     </>
   );
 };
@@ -120,13 +124,17 @@ const AdminComponent: React.FC<AdminComponentProps> = ({
   return (
     <div className="mt-8">
       <h5 className="text-primary text-3xl font-semibold">
-        Welcome, Pondicherry University NSS Admin
+        <span className="text-accent">Welcome</span>&nbsp;Admin, to Pondicherry
+        University NSS Portal
       </h5>
 
       <div className="mt-8">
-        <p className="text-lg font-semibold text-neutral-700">
-          Registration Open/Close Button
-        </p>
+        <div className="">
+          <h3 className="text-primary font-semibold text-[1.35rem]">
+            <span className="text-accent font-bold">#</span>&nbsp;Registration
+            Form Open/Close
+          </h3>
+        </div>
 
         <div className="flex justify-start items-center gap-12 p-4">
           <span>
@@ -151,17 +159,29 @@ const AdminComponent: React.FC<AdminComponentProps> = ({
           </button>
         </div>
 
+        {/* Control Panel */}
+        <div className="w-full my-8">
+          <ControlPanel />
+        </div>
+
         {/* Update a candidate information */}
         <div className="w-full my-8">
           <UpdateAUser />
         </div>
 
-        <button
-          onClick={() => handleLogout(id)}
-          className="border border-rose-400 bg-transparent text-rose-400 py-2 px-6 rounded-full font-semibold ml-[90%] hover:bg-rose-400 hover:text-white transition-all duration-300 ease-in-out"
-        >
-          Logout
-        </button>
+        {/* Get a candidate information */}
+        <div className="w-full my-8">
+          <GetAUser />
+        </div>
+
+        <div className="border-t border-t-rose-400/30 py-4 text-end">
+          <button
+            onClick={() => handleLogout(id)}
+            className="border border-rose-400 bg-transparent text-rose-400 py-2 px-6 rounded-full font-semibold hover:bg-rose-400 hover:text-white transition-all duration-300 ease-in-out"
+          >
+            Logout from your account
+          </button>
+        </div>
       </div>
     </div>
   );

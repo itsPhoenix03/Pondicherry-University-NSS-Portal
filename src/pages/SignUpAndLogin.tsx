@@ -5,6 +5,7 @@ import { IoWarningOutline } from "react-icons/io5";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 import { login } from "../redux/API Calls/userAPICalls";
 import { Navigate } from "react-router-dom";
+import CustomInputField from "../components/CustomInputField";
 // Type
 
 type loginObjType = {
@@ -46,31 +47,37 @@ const LoginComponent: React.FC = () => {
     if (!isCurrentUserAvailable) {
       // Fire the login api call
       login(dispatch, { ...loginObj });
+      setLoginObj({
+        email: "",
+        password: "",
+      });
     }
   };
 
-  if (isCurrentUserAvailable)
+  if (isCurrentUserAvailable && !currentUser?.isAdmin)
     return <Navigate to={`/user/${currentUser?._id}`} replace />;
 
   return (
     <form
-      className="w-full border-b border-b-neutral-200 flex flex-col justify-center items-center gap-6 py-8 px-4"
+      className="w-full flex flex-col justify-center items-center gap-6 py-6 px-4"
       onSubmit={onSubmit}
     >
-      <input
-        type="text"
-        name="email"
-        onChange={handleChange}
-        placeholder="Enter your Registered Email Id"
-        className="w-full py-2 px-4 outline-none border-b-[1px] border-b-neutral-200 focus:border-b-primary transition-[border-bottom] duration-300 ease-in-out text-sm"
+      <CustomInputField
+        fieldName="email"
+        handleChange={handleChange}
+        label="Registered Email Id"
+        placeholder="Enter your registered email id"
+        required={true}
+        className="z-10"
       />
 
-      <input
-        type="password"
-        name="password"
-        onChange={handleChange}
-        placeholder="Enter your Password"
-        className="w-full py-2 px-4 outline-none border-b-[1px] border-b-neutral-200 focus:border-b-primary transition-[border-bottom] duration-300 ease-in-out text-sm"
+      <CustomInputField
+        fieldName="password"
+        handleChange={handleChange}
+        label="Password"
+        placeholder="Enter your account password"
+        required={true}
+        className="z-10"
       />
 
       <button
@@ -89,6 +96,7 @@ const SignUpAndLogin = () => {
   const registrationLinkStatus = useAppSelector(
     (state) => state.registrationLink.isOpened
   );
+  const formLink = useAppSelector((state) => state.adminAction.signUpFormLink);
 
   const Icon = registrationLinkStatus
     ? AiOutlineExclamationCircle
@@ -102,11 +110,19 @@ const SignUpAndLogin = () => {
 
       <div className="w-1/3 flex flex-col justify-center items-start gap-4">
         <h5 className="text-2xl font-semibold text-primary">
-          Login for Pondicherry University{" "}
+          Login for Pondicherry University&nbsp;
           <span className="text-accent">NSS Candidate</span>
         </h5>
 
         <LoginComponent />
+
+        <h6
+          className="relative font-semibold text-accent/80 text-center w-full after:absolute after:content-[''] after:top-3 after:-right-5 after:w-[40%] after:h-[1px] after:bg-accent/50
+          before:absolute before:content-[''] before:top-3 before:w-[40%] before:h-[1px] before:bg-accent/50 before:-left-5
+        "
+        >
+          Sign Up Here!
+        </h6>
 
         <div
           className={`w-full relative text-start px-8 py-4 mt-4 ${
@@ -123,19 +139,25 @@ const SignUpAndLogin = () => {
           {registrationLinkStatus ? (
             <p className="text-black/75 text-center text-sm">
               New Registration are currently opened, so Register yourself
-              through this{" "}
+              through this&nbsp;
               <a
-                href="https://forms.gle/htY1EpPMbJzgxdGV8"
+                // TODO: Update the link from here
+                href={
+                  formLink ? formLink : "https://forms.gle/htY1EpPMbJzgxdGV8"
+                }
                 target="_blank"
                 className="text-accent hover:underline underline-offset-[5px] cursor-pointer"
               >
                 link
-              </a>{" "}
-              here!
+              </a>
+              &nbsp;here!
             </p>
           ) : (
-            <p className="text-rose-400 text-center text-sm">
+            <p className="text-neutral-700/80  text-center text-sm">
               Registrations for NSS are currently been closed!
+              <br />
+              Please contact your NSS coordinator for further information on
+              this process.
             </p>
           )}
         </div>
