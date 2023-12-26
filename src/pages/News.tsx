@@ -57,14 +57,21 @@ const News = () => {
         )}
       </div>
 
+      {/* If No News Article */}
       {/* Card Component */}
-      <div className="mt-10 grid grid-cols-3 gap-4">
-        <LatestNewsComponent {...latestNews} />
+      {allNews.length === 0 ? (
+        <div className="text-center py-12 text-neutral-800/75 font-semibold my-8">
+          <p>Look&apos;s like no news is been posted till now!</p>
+        </div>
+      ) : (
+        <div className="mt-10 grid grid-cols-3 gap-4">
+          <LatestNewsComponent {...latestNews} />
 
-        {restAllNews.map((news) => (
-          <NewsComponent key={news._id} {...news} />
-        ))}
-      </div>
+          {restAllNews.map((news) => (
+            <NewsComponent key={news._id} {...news} />
+          ))}
+        </div>
+      )}
     </section>
   );
 };

@@ -7,7 +7,7 @@ export const LatestNewsComponent: React.FC<NewsType> = ({
   article_abstract,
   image,
   title,
-  createdAt,
+  createdAt = "",
   _id,
 }) => {
   const articleDate = new Date(createdAt).toDateString();
@@ -47,7 +47,7 @@ export const NewsComponent: React.FC<NewsType> = ({
   article_abstract,
   image,
   title,
-  createdAt,
+  createdAt = "",
   _id,
 }) => {
   const articleDate = new Date(createdAt).toDateString();

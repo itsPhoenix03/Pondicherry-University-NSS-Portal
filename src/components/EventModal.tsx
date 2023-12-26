@@ -86,7 +86,7 @@ const EventModal = () => {
         name="tags"
         className="w-full col-span-2 text-sm px-4 py-2 outline-none border-b border-b-neutral-500 focus:border-b-primaryDark focus:text-primary focus:placeholder:text-primary/50"
         onChange={handleChange}
-        placeholder="Type of Tags for this event (Separate with commas [,])"
+        placeholder="Type of Tags for this event (Separate with commas Example: Environment, Community)"
       />
       <input
         type="text"
@@ -100,7 +100,7 @@ const EventModal = () => {
         name="event_date"
         className="w-full text-sm px-4 py-2 outline-none border-b border-b-neutral-500 focus:border-b-primaryDark focus:text-primary focus:placeholder:text-primary/50"
         onChange={handleChange}
-        placeholder="Enter the Date when Event is going to happen"
+        placeholder="Event Date (Example Format: 01 January 2023)"
       />
       <input
         type="text"
@@ -114,7 +114,7 @@ const EventModal = () => {
         name="event_time"
         className="w-full text-sm px-4 py-2 outline-none border-b border-b-neutral-500 focus:border-b-primaryDark focus:text-primary focus:placeholder:text-primary/50"
         onChange={handleChange}
-        placeholder="Enter the Timing of the Event"
+        placeholder="Enter the Timing of the Event (Example: 10:00 AM)"
       />
     </div>
   );

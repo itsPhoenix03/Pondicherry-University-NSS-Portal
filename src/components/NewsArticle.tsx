@@ -2,10 +2,25 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { NewsType } from "../types";
 import { publicRequest } from "../requestMethods";
+import { FaTrash } from "react-icons/fa6";
+import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
+import { deleteNews } from "../redux/API Calls/newsAPICalls";
 
 const NewsArticle = () => {
+  // Dispatch
+  const dispatch = useAppDispatch();
+
+  // Fetching if the user an Admin or not
+  const isAdmin = useAppSelector((state) => state.profile.currentUser?.isAdmin);
+
   const { newsId: articleId } = useParams();
   const [articleData, setArticleData] = useState<NewsType | null>(null);
+
+  // Handle Delete
+  const handleDelete = (_id: string) => {
+    deleteNews(dispatch, _id);
+    window.location.replace("/news");
+  };
 
   useEffect(() => {
     document.body.scrollTop = 0; // For Safari
@@ -21,9 +36,17 @@ const NewsArticle = () => {
     if (articleId) fetchArticle(articleId);
   }, [articleId]);
 
-  if (articleData)
+  if (articleData && articleData.createdAt)
     return (
-      <div className="p-8 my-6 border border-neutral-200/75">
+      <div className="relative p-8 my-6 border border-neutral-200/75">
+        {isAdmin && articleId && (
+          <button
+            className="absolute top-4 right-4"
+            onClick={() => handleDelete(articleId)}
+          >
+            <FaTrash size={"1.5rem"} color={"#ec3c3cc3"} />
+          </button>
+        )}
         <img
           src={articleData.image}
           alt=""

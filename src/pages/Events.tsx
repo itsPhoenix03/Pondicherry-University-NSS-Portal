@@ -53,16 +53,22 @@ const Events = () => {
       </div>
 
       {/* Events List Component */}
-      <div className="grid grid-cols-3 gap-4 mt-10">
-        {events.map((event) => (
-          <EventCard
-            key={event._id}
-            dispatch={dispatch}
-            isAdmin={isAdmin}
-            {...event}
-          />
-        ))}
-      </div>
+      {events.length === 0 ? (
+        <div className="text-center py-12 text-neutral-800/75 font-semibold my-8">
+          <p>Look&apos;s like no events are currently happing!</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-3 gap-4 mt-10">
+          {events.map((event) => (
+            <EventCard
+              key={event._id}
+              dispatch={dispatch}
+              isAdmin={isAdmin}
+              {...event}
+            />
+          ))}
+        </div>
+      )}
     </section>
   );
 };
