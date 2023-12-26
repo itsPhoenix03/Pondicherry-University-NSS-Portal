@@ -1,6 +1,6 @@
 import axios from "axios";
 
-// const BASE_URL = "";
+const BASE_URL = "https://pondicherry-univerisity-nss-portal.onrender.com/";
 const LOCALHOST_URL = "http://localhost:8080/api/";
 
 export const localRequest = axios.create({
@@ -8,5 +8,5 @@ export const localRequest = axios.create({
 });
 
 export const publicRequest = axios.create({
-  baseURL: LOCALHOST_URL,
+  baseURL: BASE_URL,
 });
