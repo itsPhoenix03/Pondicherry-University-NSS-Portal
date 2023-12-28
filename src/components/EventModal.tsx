@@ -26,7 +26,7 @@ const EventModal = () => {
   // State to maintain the event object
   const [newEvent, setNewEvent] = useState<EventType>(DEFAULT_EVENT_OBJ);
 
-  //TODO Submit function for New Event Addition
+  // Submit function for New Event Addition
 
   const handleSubmit = () => {
     console.log(newEvent);
@@ -73,46 +73,46 @@ const EventModal = () => {
   };
 
   const bodyContent = (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       <input
         type="text"
         name="event_name"
-        className="w-full text-sm px-4 py-2 outline-none border-b border-b-neutral-500 focus:border-b-primaryDark focus:text-primary focus:placeholder:text-primary/50"
+        className="w-full text-[8px] lg:text-sm px-1 lg:px-4 py-2 outline-none border-b border-b-neutral-500 focus:border-b-primaryDark focus:text-primary focus:placeholder:text-primary/50"
         onChange={handleChange}
         placeholder="Enter the NSS Event Name"
       />
       <input
         type="text"
         name="tags"
-        className="w-full col-span-2 text-sm px-4 py-2 outline-none border-b border-b-neutral-500 focus:border-b-primaryDark focus:text-primary focus:placeholder:text-primary/50"
+        className="w-full lg:col-span-2 text-[8px] lg:text-sm px-1 lg:px-4 py-2 outline-none border-b border-b-neutral-500 focus:border-b-primaryDark focus:text-primary focus:placeholder:text-primary/50"
         onChange={handleChange}
         placeholder="Type of Tags for this event (Separate with commas Example: Environment, Community)"
       />
       <input
         type="text"
         name="description"
-        className="w-full col-span-2 text-sm px-4 py-2 outline-none border-b border-b-neutral-500 focus:border-b-primaryDark focus:text-primary focus:placeholder:text-primary/50"
+        className="w-full lg:col-span-2 text-[8px] lg:text-sm px-1 lg:px-4 py-2 outline-none border-b border-b-neutral-500 focus:border-b-primaryDark focus:text-primary focus:placeholder:text-primary/50"
         onChange={handleChange}
         placeholder="Enter the NSS Event Description (Short and Precise Max Limit: 50)"
       />
       <input
         type="text"
         name="event_date"
-        className="w-full text-sm px-4 py-2 outline-none border-b border-b-neutral-500 focus:border-b-primaryDark focus:text-primary focus:placeholder:text-primary/50"
+        className="w-full text-[8px] lg:text-sm px-1 lg:px-4 py-2 outline-none border-b border-b-neutral-500 focus:border-b-primaryDark focus:text-primary focus:placeholder:text-primary/50"
         onChange={handleChange}
         placeholder="Event Date (Example Format: 01 January 2023)"
       />
       <input
         type="text"
         name="event_location"
-        className="w-full text-sm px-4 py-2 outline-none border-b border-b-neutral-500 focus:border-b-primaryDark focus:text-primary focus:placeholder:text-primary/50"
+        className="w-full text-[8px] lg:text-sm px-1 lg:px-4 py-2 outline-none border-b border-b-neutral-500 focus:border-b-primaryDark focus:text-primary focus:placeholder:text-primary/50"
         onChange={handleChange}
         placeholder="Enter the NSS Event Location"
       />
       <input
         type="text"
         name="event_time"
-        className="w-full text-sm px-4 py-2 outline-none border-b border-b-neutral-500 focus:border-b-primaryDark focus:text-primary focus:placeholder:text-primary/50"
+        className="w-full text-[8px] lg:text-sm px-1 lg:px-4 py-2 outline-none border-b border-b-neutral-500 focus:border-b-primaryDark focus:text-primary focus:placeholder:text-primary/50"
         onChange={handleChange}
         placeholder="Enter the Timing of the Event (Example: 10:00 AM)"
       />

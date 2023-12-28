@@ -40,7 +40,7 @@ const UserComponent: React.FC<UserType & UserComponentPorps> = ({
 }) => {
   return (
     <>
-      <div className="flex justify-evenly items-center gap-4 w-full mx-auto mt-8">
+      <div className="flex flex-col md:flex-row justify-evenly items-center md:items-start lg:items-center gap-4 w-full mx-auto mt-8">
         <div className="h-full p-2 relative">
           <div className="h-[100%] w-[100%] skew-y-6 bg-accent/75 absolute -top-0 left-0" />
           <img
@@ -49,8 +49,8 @@ const UserComponent: React.FC<UserType & UserComponentPorps> = ({
             className="w-[150px] h-[150px] object-contain z-10 relative overflow-hidden"
           />
         </div>
-        <div className="p-6 flex-auto grid grid-cols-3 gap-4">
-          <div className="font-bold text-[2rem] mb-2 text-primary col-span-3">
+        <div className="p-6 flex-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="font-bold text-[2rem] mb-2 text-primary md:col-span-2 lg:col-span-3">
             <span className="text-accent">#</span>
             {name}
           </div>
@@ -72,12 +72,12 @@ const UserComponent: React.FC<UserType & UserComponentPorps> = ({
           <DetailsDisplayComponent
             label="Present Address"
             value={presentAddress}
-            className="col-span-2"
+            className="md:col-span-2"
           />
           <DetailsDisplayComponent
             label="Permanent Address"
             value={permanentAddress}
-            className="col-span-3"
+            className="md:col-span-2 lg:col-span-3"
           />
         </div>
       </div>
@@ -92,10 +92,10 @@ const UserComponent: React.FC<UserType & UserComponentPorps> = ({
         <UserCertificates />
       </div>
 
-      <div className="border-t border-t-rose-400/30 py-4 text-end">
+      <div className="border-t border-t-rose-400/30 py-4 text-center md:text-end">
         <button
           onClick={() => handleLogout(_id)}
-          className="border border-rose-400 bg-transparent text-rose-400 py-2 px-6 rounded-full font-semibold hover:bg-rose-400 hover:text-white transition-all duration-300 ease-in-out"
+          className="border border-rose-400 bg-transparent text-rose-400 py-2 px-6 rounded-full font-semibold hover:bg-rose-400 hover:text-white transition-all duration-300 ease-in-out text-sm lg:text-base"
         >
           Logout from your account
         </button>
@@ -130,13 +130,13 @@ const AdminComponent: React.FC<AdminComponentProps> = ({
 
       <div className="mt-8">
         <div className="">
-          <h3 className="text-primary font-semibold text-[1.35rem]">
+          <h3 className="text-primary font-semibold lg:text-[1.35rem]">
             <span className="text-accent font-bold">#</span>&nbsp;Registration
             Form Open/Close
           </h3>
         </div>
 
-        <div className="flex justify-start items-center gap-12 p-4">
+        <div className="flex flex-col md:flex-row justify-start items-center gap-4 md:gap-12 p-4 text-xs lg:text-base">
           <span>
             Current Status of Registration:{" "}
             <span
@@ -174,10 +174,10 @@ const AdminComponent: React.FC<AdminComponentProps> = ({
           <GetAUser />
         </div>
 
-        <div className="border-t border-t-rose-400/30 py-4 text-end">
+        <div className="border-t border-t-rose-400/30 py-4 text-center md:text-end">
           <button
             onClick={() => handleLogout(id)}
-            className="border border-rose-400 bg-transparent text-rose-400 py-2 px-6 rounded-full font-semibold hover:bg-rose-400 hover:text-white transition-all duration-300 ease-in-out"
+            className="border border-rose-400 bg-transparent text-rose-400 py-2 px-6 rounded-full font-semibold hover:bg-rose-400 hover:text-white transition-all duration-300 ease-in-out text-sm lg:text-base"
           >
             Logout from your account
           </button>

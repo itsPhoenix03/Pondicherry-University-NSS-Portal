@@ -6,7 +6,7 @@ import nssLogo from "../assets/nss-logo-1.png";
 const MainNav = () => {
   return (
     <section className="bg-primaryDark">
-      <div className="flex justify-evenly items-center gap-20 py-1 text-white ml-auto mr-auto max-w-[1240px]">
+      <div className="flex justify-evenly items-center gap-8 md:gap-20 py-4 md:py-2 lg:py-1 text-white md:ml-auto md:mr-auto md:max-w-[1240px]">
         <img
           src={logo}
           alt="pondicherry university logo"
@@ -14,7 +14,7 @@ const MainNav = () => {
           className="object-cover h-auto"
         />
 
-        <div className="flex flex-row-reverse justify-between items-center gap-4">
+        <div className="hidden lg:flex flex-row-reverse justify-between items-center gap-4">
           <img
             src={nssLogo}
             alt="nss logo"

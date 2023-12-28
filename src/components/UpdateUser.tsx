@@ -138,14 +138,14 @@ const UpdateUser = () => {
           {({ open, close }) => (
             <>
               <Disclosure.Button
-                className={`flex justify-between items-center gap-4 w-full`}
+                className={`flex justify-between items-start lg:items-center gap-4 w-full`}
               >
                 <div className="">
-                  <h3 className="text-primary font-bold text-[1.5rem]">
+                  <h3 className="text-primary font-bold text-base lg:text-[1.5rem] lg:leading-[3rem] text-start">
                     <span className="text-accent">#</span>&nbsp;Update Your
                     Profile Information
                   </h3>
-                  <p className="text-accent/75 text-[1rem] text-start">
+                  <p className="text-accent/75 text-xs lg:text-[1rem] text-start">
                     Only fill the fields you want to change
                   </p>
                 </div>
@@ -170,12 +170,12 @@ const UpdateUser = () => {
                 <Disclosure.Panel className={``}>
                   <form
                     onSubmit={(e) => handleFormSubmit(e, close)}
-                    className="my-8 grid grid-cols-3 gap-4"
+                    className="my-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
                   >
                     <input
                       type="file"
                       name="image"
-                      className="inp col-span-3"
+                      className="inp text-xs lg:text-base md:col-span-2 lg:col-span-3"
                       onChange={(e) => {
                         if (e.target.files)
                           handleImageUpload(e.target.files[0]);
@@ -235,14 +235,14 @@ const UpdateUser = () => {
                       handleChange={handleChange}
                       label="Update Your Present Address"
                       placeholder={currentUser.presentAddress}
-                      className="col-span-3"
+                      className="md:col-span-2 lg:col-span-3"
                     />
                     <CustomInputField
                       fieldName="permanentAddress"
                       handleChange={handleChange}
                       label="Update Your Permanent Address"
                       placeholder={currentUser.permanentAddress}
-                      className="col-span-3"
+                      className="md:col-span-2 lg:col-span-3"
                     />
                     <CustomInputField
                       fieldName="password"
@@ -251,9 +251,9 @@ const UpdateUser = () => {
                       placeholder={"Enter your new password here"}
                     />
 
-                    <div className="mt-4 col-span-3 text-end">
+                    <div className="mt-4 md:col-span-2 lg:col-span-3 text-end">
                       <button
-                        className="px-6 py-2 ml-4 rounded-full border border-primary/75 text-primary bg-transparent hover:bg-primary/10 hover:text-primary transition-all duration-300 ease-in-out"
+                        className="w-full md:w-fit px-6 py-2 mb-4 md:mb-0 ml-0 md:ml-4 rounded-full border border-primary/75 text-primary bg-transparent hover:bg-primary/10 hover:text-primary transition-all duration-300 ease-in-out text-xs lg:text-base"
                         onClick={() => setUpdateUser({})}
                         disabled={disable}
                         type="reset"
@@ -262,7 +262,7 @@ const UpdateUser = () => {
                       </button>
                       <button
                         type="submit"
-                        className="px-6 py-2 mx-4 rounded-full font-semibold border border-accent text-accent bg-transparent hover:bg-accent/10 hover:text-accent transition-all duration-300 ease-in-out"
+                        className="w-full md:w-fit px-6 py-2 md:mx-4 rounded-full font-semibold border border-accent text-accent bg-transparent hover:bg-accent/10 hover:text-accent transition-all duration-300 ease-in-out text-xs lg:text-base"
                         disabled={disable}
                       >
                         Update Information

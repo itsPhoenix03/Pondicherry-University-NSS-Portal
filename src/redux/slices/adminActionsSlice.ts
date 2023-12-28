@@ -7,7 +7,7 @@ type InitialStateType = {
 };
 
 const initialState: InitialStateType = {
-  signUpFormLink: "",
+  signUpFormLink: "https://forms.gle/htY1EpPMbJzgxdGV8",
   isUpdated: false,
   isError: false,
 };

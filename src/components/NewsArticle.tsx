@@ -41,7 +41,7 @@ const NewsArticle = () => {
       <div className="relative p-8 my-6 border border-neutral-200/75">
         {isAdmin && articleId && (
           <button
-            className="absolute top-4 right-4"
+            className="absolute top-2 md:top-4 right-2 md:right-4"
             onClick={() => handleDelete(articleId)}
           >
             <FaTrash size={"1.5rem"} color={"#ec3c3cc3"} />
@@ -50,18 +50,18 @@ const NewsArticle = () => {
         <img
           src={articleData.image}
           alt=""
-          className="object-contain h-[25rem] w-auto mx-auto"
+          className="object-cover md:object-contain h-[25rem] w-auto mx-auto"
         />
 
-        <h3 className="font-semibold text-[2.5rem] my-4 w-full text-center text-primaryDark">
+        <h3 className="font-semibold text-2xl md:text-[2.5rem] md:leading-[3rem] my-4 w-full text-center text-primaryDark">
           {articleData.title}
         </h3>
 
-        <p className="w-full text-right italic font-medium my-4 text-sm">
+        <p className="w-full text-right italic font-medium my-4 text-[12px] lg:text-sm">
           {new Date(articleData.createdAt).toDateString()}
         </p>
 
-        <div className="font-special font-light text-md text-neutral-700 my-4">
+        <div className="font-special font-light text-[13px] md:text-sm lg:text-md text-neutral-700 my-4">
           <p>{articleData.article}</p>
         </div>
       </div>

@@ -7,14 +7,14 @@ const UserCertificates = () => {
       {({ open }) => (
         <>
           <Disclosure.Button
-            className={`flex justify-between items-center gap-4 w-full`}
+            className={`flex justify-between items-start lg:items-center gap-4 w-full`}
           >
             <div className="">
-              <h3 className="text-primary font-bold text-[1.5rem]">
+              <h3 className="text-primary font-bold text-base lg:text-[1.5rem] lg:leading-[3rem] text-start">
                 <span className="text-accent">#</span>&nbsp;Your
                 Certificate&apos;s Information
               </h3>
-              <p className="text-accent/75 text-[1rem] text-start">
+              <p className="text-accent/75 text-xs lg:text-[1rem] text-start">
                 See your certificate&apos;s
               </p>
             </div>
@@ -38,7 +38,9 @@ const UserCertificates = () => {
           >
             <Disclosure.Panel className={``}>
               <div className="p-8">
-                <h3 className="text-center text-neutral-600">Coming Soon...</h3>
+                <h3 className="text-xs lg:text-base text-center text-neutral-600">
+                  Coming Soon...
+                </h3>
               </div>
             </Disclosure.Panel>
           </Transition>

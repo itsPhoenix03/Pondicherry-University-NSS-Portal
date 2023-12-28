@@ -13,11 +13,13 @@ const DetailsDisplayComponent: React.FC<DetailsDisplayProps> = ({
   className,
 }) => {
   return (
-    <div className={`flex justify-start items-center gap-2 ${className}`}>
-      <p className="font-semibold text-md underline underline-offset-4">
+    <div
+      className={`flex flex-col lg:flex-row justify-start items-start lg:items-center gap-2 ${className}`}
+    >
+      <p className="font-semibold text-sm md:text-md underline underline-offset-4">
         {label}:
       </p>
-      <span className="text-md">{value}</span>
+      <span className="text-xs md:text-md">{value}</span>
     </div>
   );
 };

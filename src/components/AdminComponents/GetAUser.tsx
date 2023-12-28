@@ -62,7 +62,7 @@ const GetAUser = () => {
     castCategory,
     religion,
   }: UserType) => (
-    <div className="flex justify-evenly items-center gap-4 w-full mx-auto mt-8">
+    <div className="flex flex-col md:flex-row justify-evenly items-center md:items-start lg:items-center gap-4 w-full mx-auto mt-8">
       <div className="h-full p-2 relative">
         <div className="h-[100%] w-[100%] skew-y-6 bg-accent/75 absolute -top-0 left-0" />
         <img
@@ -71,8 +71,8 @@ const GetAUser = () => {
           className="w-[150px] h-[150px] object-contain z-10 relative overflow-hidden"
         />
       </div>
-      <div className="p-6 flex-auto grid grid-cols-3 gap-4">
-        <div className="font-bold text-[2rem] mb-2 text-primary col-span-3">
+      <div className="py-6 md:p-6 flex-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="font-bold text-[2rem] mb-2 text-primary md:col-span-2 lg:col-span-3">
           <span className="text-accent">#</span>
           {name}
         </div>
@@ -91,12 +91,12 @@ const GetAUser = () => {
         <DetailsDisplayComponent
           label="Present Address"
           value={presentAddress}
-          className="col-span-2"
+          className="md:col-span-2"
         />
         <DetailsDisplayComponent
           label="Permanent Address"
           value={permanentAddress}
-          className="col-span-3"
+          className="md:col-span-2 lg:col-span-3"
         />
       </div>
     </div>
@@ -104,7 +104,7 @@ const GetAUser = () => {
 
   // Placeholder Content
   const Placeholder = () => (
-    <div className="w-full py-6 text-neutral-700/50 text-md font-semibold text-center">
+    <div className="w-full py-6 text-neutral-700/50 text-md font-semibold text-center text-sm md:text-base">
       {error === "" ? (
         <p>
           Look&apos;s like you haven&apos;t fetched any candidate information
@@ -121,14 +121,14 @@ const GetAUser = () => {
       {({ open }) => (
         <>
           <Disclosure.Button
-            className={`flex justify-between items-center gap-4 w-full`}
+            className={`flex justify-between items-start lg:items-center gap-4 w-full`}
           >
             <div className="">
-              <h3 className="text-primary font-bold text-[1.5rem]">
+              <h3 className="text-primary font-bold text-base lg:text-[1.5rem] lg:leading-[3rem] text-start">
                 <span className="text-accent">#</span>&nbsp;See a Candidate
                 Information
               </h3>
-              <p className="text-accent/75 text-[1rem] text-start">
+              <p className="text-accent/75 text-xs lg:text-[1rem] text-start">
                 Fetch all the details for a candidate
               </p>
             </div>
@@ -151,7 +151,7 @@ const GetAUser = () => {
             leaveTo="transform -translate-y-50 opacity-0"
           >
             <Disclosure.Panel className={``}>
-              <div className="mt-2 flex justify-start items-center gap-2">
+              <div className="mt-2 flex flex-col md:flex-row justify-start items-center gap-2">
                 <CustomInputField
                   fieldName="email"
                   handleChange={handleChange}
@@ -163,7 +163,8 @@ const GetAUser = () => {
                 <div className="mt-4 w-full">
                   <button
                     onClick={handleFetch}
-                    className="px-6 py-2 mx-4 rounded-full border border-accent text-accent bg-transparent hover:bg-accent/10 hover:text-accent transition-all duration-300 ease-in-out"
+                    className="px-6 py-2 lg:mx-4 rounded-full border border-accent text-accent bg-transparent hover:bg-accent/10 hover:text-accent transition-all duration-300 ease-in-out
+                    text-xs lg:text-base w-full md:w-fit"
                     disabled={disable}
                   >
                     Get Candidate Information
@@ -171,7 +172,7 @@ const GetAUser = () => {
                 </div>
               </div>
 
-              <p className="relative my-6 font-semibold text-md text-primary after:absolute after:content-[''] after:w-[75%] after:h-[1px] after:bg-accent/30 after:top-3 after:ml-2">
+              <p className="relative my-6 font-semibold text-sm md:text-md text-primary after:absolute after:content-[''] after:w-[75%] after:h-[1px] after:bg-accent/30 after:top-3 after:ml-2">
                 <span className="text-accent">#</span>&nbsp;Candidate Details
               </p>
 

@@ -54,7 +54,7 @@ const Modal: React.FC<ModalProps> = ({
   return (
     <div className="fixed flex justify-center items-center inset-0 z-50 outline-none focus:outline-none overflow-x-hidden overflow-y-auto bg-neutral-800/70 font-display">
       {/* Main Modal Component */}
-      <div className="relative w-7/12 h-auto my-6 mx-auto">
+      <div className="relative w-full lg:w-7/12 h-auto my-6 mx-2 lg:mx-auto">
         <div
           className={`transition duration-500 h-full ${
             showModal ? "translate-y-0" : "translate-y-full"
@@ -63,7 +63,7 @@ const Modal: React.FC<ModalProps> = ({
           <div className="h-auto transition border-0 relative flex flex-col w-full bg-white outline-none focus:outline-none">
             {/* Header */}
             <div className="flex items-center justify-center p-6 relative border-b-[1px]">
-              <div className="text-md font-semibold md:text-lg">{title}</div>
+              <div className="text-sm font-semibold lg:text-lg">{title}</div>
               <button
                 onClick={handleClose}
                 className="p-1 border-0 hover:opacity-70 transition absolute right-3 md:right-9"
@@ -78,7 +78,7 @@ const Modal: React.FC<ModalProps> = ({
             {/* Footer */}
             <div className="p-4 w-full flex justify-end items-center gap-4">
               <button
-                className="border border-accent bg-transparent text-accent px-6 py-2 rounded-full hover:bg-accent hover:text-white transition-all duration-300 ease-in-out w-auto font-semibold text-sm"
+                className="border border-accent bg-transparent text-accent px-6 py-2 rounded-full hover:bg-accent hover:text-white transition-all duration-300 ease-in-out w-auto font-semibold text-[10px] md:text-sm"
                 onClick={handleSubmit}
                 disabled={disable ? disable : false}
               >

@@ -132,11 +132,11 @@ const NewsModal = () => {
   };
 
   const bodyContent = (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       <input
         type="text"
         name="title"
-        className="w-full text-sm px-4 py-2 outline-none border-b border-b-neutral-500 focus:border-b-primaryDark focus:text-primary focus:placeholder:text-primary/50"
+        className="w-full text-[8px] lg:text-sm px-1 lg:px-4 py-2 outline-none border-b border-b-neutral-500 focus:border-b-primaryDark focus:text-primary focus:placeholder:text-primary/50"
         onChange={handleChange}
         placeholder="Enter the Article Title"
       />
@@ -145,7 +145,7 @@ const NewsModal = () => {
         type="file"
         accept="image/*"
         name="image"
-        className="inp w-full text-sm px-4 py-2 outline-none border-b border-b-neutral-500 focus:border-b-primaryDark focus:text-primary focus:placeholder:text-primary/50"
+        className="inp w-full text-[8px] lg:text-sm px-1 lg:px-4 py-2 outline-none border-b border-b-neutral-500 focus:border-b-primaryDark focus:text-primary focus:placeholder:text-primary/50"
         onChange={(e) => {
           if (e.target.files) handleImageUpload(e.target.files[0]);
         }}
@@ -155,14 +155,14 @@ const NewsModal = () => {
       <input
         type="text"
         name="article_abstract"
-        className="w-full col-span-2 text-sm px-4 py-2 outline-none border-b border-b-neutral-500 focus:border-b-primaryDark focus:text-primary focus:placeholder:text-primary/50"
+        className="w-full md:col-span-2 text-[8px] lg:text-sm px-1 lg:px-4 py-2 outline-none border-b border-b-neutral-500 focus:border-b-primaryDark focus:text-primary focus:placeholder:text-primary/50"
         onChange={handleChange}
         placeholder="Enter the abstract for the article (max 40)"
       />
 
       <textarea
         name="article"
-        className="w-full col-span-2 text-sm px-4 py-2 outline-none border-b border-b-neutral-500 focus:border-b-primaryDark focus:text-primary focus:placeholder:text-primary/50"
+        className="w-full md:col-span-2 text-[8px] lg:text-sm px-1 lg:px-4 py-2 outline-none border-b border-b-neutral-500 focus:border-b-primaryDark focus:text-primary focus:placeholder:text-primary/50"
         onChange={handleChange}
         placeholder="Enter the Content of the Article"
         rows={15}

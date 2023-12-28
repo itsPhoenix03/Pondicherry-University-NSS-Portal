@@ -120,8 +120,8 @@ const Footer = () => {
   return (
     <>
       <section className="bg-primaryDark py-[30px] text-white font-special">
-        <div className="flex justify-center items-start gap-10 w-fit ml-auto mr-auto">
-          <div className="flex flex-col justify-center items-start gap-4">
+        <div className="flex flex-col lg:flex-row justify-center items-center lg:items-start gap-10 w-fit ml-auto mr-auto">
+          <div className="flex flex-col justify-center items-center lg:items-start gap-4">
             <img
               src={footerLogo}
               alt="Pondicherry UNiversity Logo"
@@ -148,12 +148,12 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="flex flex-col justify-start items-start gap-4">
-            <h5 className="mb-[15px] text-[15px]">
+          <div className="flex flex-col justify-start items-center lg:items-start gap-4">
+            <h5 className="mb-[15px] text-[13px] lg:text-[15px]">
               Get in Touch with Us for world class Education.
             </h5>
 
-            <p className="text-white/75 text-[15px] font-light leading-8">
+            <p className="text-white/75 text-[13px] lg:text-[15px] font-light leading-8">
               The Registrar,
               <br />
               R Venkat Raman Nagar, Kalapet
@@ -166,15 +166,15 @@ const Footer = () => {
             </p>
           </div>
 
-          <div className="flex justify-start items-start gap-12">
-            <div className="flex flex-col justify-center items-start gap-4">
+          <div className="flex flex-col md:flex-row justify-start items-start gap-12">
+            <div className="flex flex-col justify-center items-center lg:items-start gap-4">
               <h5 className="text-[15px] font-extralight">Quick Links</h5>
 
               <ul className="list-none text-[13px] text-white/75 font-extralight">
                 {quickLinkArr.map((link) => (
                   <li
                     key={link.name}
-                    className="my-2 hover:text-white cursor-pointer"
+                    className="my-2 hover:text-white cursor-pointer text-center lg:text-inherit"
                   >
                     {link.name}
                   </li>
@@ -182,14 +182,14 @@ const Footer = () => {
               </ul>
             </div>
 
-            <div className="flex flex-col justify-center items-start gap-4">
+            <div className="flex flex-col justify-center items-center lg:items-start gap-4">
               <h5 className="text-[15px] font-extralight">Important Links</h5>
 
               <ul className="list-none text-[13px] text-white/75 font-extralight">
                 {importantLinkArr.map((link) => (
                   <li
                     key={link.name}
-                    className="my-2 hover:text-white cursor-pointer"
+                    className="my-2 hover:text-white cursor-pointer text-center lg:text-inherit"
                   >
                     {link.name}
                   </li>
@@ -197,14 +197,14 @@ const Footer = () => {
               </ul>
             </div>
 
-            <div className="flex flex-col justify-center items-start gap-4">
+            <div className="flex flex-col justify-center items-center lg:items-start gap-4">
               <h5 className="text-[15px] font-extralight">Constituent Units</h5>
 
               <ul className="list-none text-[13px] text-white/75 font-extralight">
                 {constituentUnitsArr.map((link) => (
                   <li
                     key={link.name}
-                    className="my-2 hover:text-white cursor-pointer"
+                    className="my-2 hover:text-white cursor-pointer text-center lg:text-inherit"
                   >
                     {link.name}
                   </li>
@@ -217,11 +217,11 @@ const Footer = () => {
 
       <section className="bg-primaryDark font-special text-white border border-t-[1px] border-[#797979]">
         <div className="ml-auto mr-auto w-[75%] flex justify-between items-center gap-4 py-2">
-          <span className="text-[13px]">
+          <span className="text-[10px] md:text-[13px]">
             Copyright 2023 &copy; Pondicherry University
           </span>
 
-          <div className="text-[15px] font-light flex justify-between items-center gap-4">
+          <div className="text-[10px] md:text-[15px] font-light flex justify-between items-center gap-4">
             <a href="#">ICT Policy</a>
             <span>Developed By Sheryas</span>
           </div>

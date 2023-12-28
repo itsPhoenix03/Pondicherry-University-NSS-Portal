@@ -25,7 +25,7 @@ const UpdateUserModal: React.FC<UpdateUserModalProps> = ({
   const bodyContent = (
     <div className="relative">
       <button
-        className="absolute top-2 right-4"
+        className="absolute top-1 md:top-2 right-2 md:right-4"
         onClick={() => setShowPassword(!showPassword)}
       >
         <Icon color={showPassword ? "#fabc2a" : "#fb7185"} size={"1.5rem"} />
@@ -34,7 +34,7 @@ const UpdateUserModal: React.FC<UpdateUserModalProps> = ({
         type={showPassword ? "text" : "password"}
         name="confirmPassword"
         onChange={(e) => updateUserModal.setConfirmPassword(e.target.value)}
-        className="w-full border-b border-b-neutral-300 focus:border-b-primary px-4 py-2 outline-none"
+        className="w-full border-b border-b-neutral-300 focus:border-b-primary px-4 py-2 outline-none text-[8px] md:text-base"
         placeholder="Enter your profile password to update your profile"
       />
     </div>
