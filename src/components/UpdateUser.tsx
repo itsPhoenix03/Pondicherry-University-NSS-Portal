@@ -13,6 +13,7 @@ import app from "../firebase";
 import { update } from "../redux/API Calls/userAPICalls";
 import useUpdateUserModal from "../hooks/useUpdateUserModal";
 import UpdateUserModal from "./UpdateUserModal";
+import toast from "react-hot-toast";
 
 const UpdateUser = () => {
   const updateUserModal = useUpdateUserModal();
@@ -52,6 +53,8 @@ const UpdateUser = () => {
 
         const uploadTask = uploadBytesResumable(storageRef, file);
 
+        const toastId = toast.loading("Uploading Image...");
+
         await uploadTask.on(
           "state_changed",
           (snapshot) => {
@@ -75,6 +78,9 @@ const UpdateUser = () => {
           (error) => {
             // Handle unsuccessful uploads
             console.log(error.message);
+            toast.error("Oops! Image can't be uploaded", {
+              id: toastId,
+            });
           },
           () => {
             // Handle successful uploads on complete
@@ -86,6 +92,10 @@ const UpdateUser = () => {
                   image: downloadURL,
                 }));
 
+                toast.success("Image uploaded", {
+                  id: toastId,
+                });
+
                 // Changing the disable state
                 setDisable(false);
               }
@@ -95,6 +105,7 @@ const UpdateUser = () => {
       }
     } catch (error) {
       console.log(error);
+      toast.error("Oops! Something went wrong :/");
     }
 
     // ||||||||||||||||||||||||||||||||||||||||||||||||||

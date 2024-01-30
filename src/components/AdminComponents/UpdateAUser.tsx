@@ -11,6 +11,7 @@ import app from "../../firebase";
 import CustomInputField from "../CustomInputField";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { adminCandidateUpdate } from "../../redux/API Calls/adminActionsAPICalls";
+import toast from "react-hot-toast";
 
 const UpdateAUser = () => {
   const currentUserIsAdmin = useAppSelector(
@@ -55,6 +56,8 @@ const UpdateAUser = () => {
 
         const uploadTask = uploadBytesResumable(storageRef, file);
 
+        const toastId = toast.loading("Uploading profile image...");
+
         await uploadTask.on(
           "state_changed",
           (snapshot) => {
@@ -78,6 +81,9 @@ const UpdateAUser = () => {
           (error) => {
             // Handle unsuccessful uploads
             console.log(error.message);
+            toast.error("Oops! Profile image can't be uploaded", {
+              id: toastId,
+            });
           },
           () => {
             // Handle successful uploads on complete
@@ -89,6 +95,10 @@ const UpdateAUser = () => {
                   image: downloadURL,
                 }));
 
+                toast.success("Uploaded profile image", {
+                  id: toastId,
+                });
+
                 // Changing the disable state
                 setDisable(false);
               }
@@ -98,6 +108,7 @@ const UpdateAUser = () => {
       }
     } catch (error) {
       console.log(error);
+      toast.error("Oops! Something went wrong :/");
     }
 
     // ||||||||||||||||||||||||||||||||||||||||||||||||||

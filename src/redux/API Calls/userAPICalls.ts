@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import { publicRequest } from "../../requestMethods";
 import { UserType } from "../../types";
 
@@ -24,8 +25,10 @@ export const login = async (dispatch: AppDispatch, user: UserProps) => {
 
     // Success and returning the data
     dispatch(userLoginSuccess(res.data));
+    toast.success(`Welcome Back! ${res.data.name}`);
   } catch (error) {
     dispatch(userFailure());
+    toast.error("Oops! Something went wrong :/");
   }
 };
 
@@ -46,7 +49,9 @@ export const update = async (
 
     // Success and returning the data
     dispatch(userLoginSuccess({ ...user, ...updateUserProps }));
+    toast.success("Profile Update Successful");
   } catch (error) {
     dispatch(userFailure());
+    toast.error("Oops! Something went wrong :/");
   }
 };

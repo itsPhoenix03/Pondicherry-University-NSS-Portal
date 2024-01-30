@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import { publicRequest } from "../../requestMethods";
 import { NewsType } from "../../types";
 import {
@@ -34,8 +35,10 @@ export const addNews = async (dispatch: AppDispatch, eventData: NewsType) => {
 
     // Success
     dispatch(createNewsSuccess(res.data));
+    toast.success("New Article Published");
   } catch (error) {
     dispatch(newsFailure());
+    toast.error("Oops! Something went wrong :/");
   }
 };
 
@@ -51,7 +54,9 @@ export const deleteNews = async (dispatch: AppDispatch, eventId: string) => {
 
     // Success
     deleteNewsSuccess(eventId);
+    toast.success("Article Deleted Successfully");
   } catch (error) {
     dispatch(newsFailure());
+    toast.error("Oops! Something went wrong :/");
   }
 };

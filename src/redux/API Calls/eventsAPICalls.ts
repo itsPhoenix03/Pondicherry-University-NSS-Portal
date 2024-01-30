@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import { publicRequest } from "../../requestMethods";
 import { EventType } from "../../types";
 import {
@@ -33,8 +34,10 @@ export const addEvent = async (dispatch: AppDispatch, eventData: EventType) => {
 
     // Success
     dispatch(createEventSuccess(res.data));
+    toast.success("New Event Published");
   } catch (error) {
     dispatch(eventsFailure());
+    toast.error("Oops! Something went wrong :/");
   }
 };
 
@@ -49,8 +52,10 @@ export const deleteEvent = async (dispatch: AppDispatch, eventId: string) => {
     });
 
     // Success
-    deleteEventSuccess(eventId);
+    dispatch(deleteEventSuccess(eventId));
+    toast.success("Event Deleted Successfully");
   } catch (error) {
     dispatch(eventsFailure());
+    toast.error("Oops! Something went wrong :/");
   }
 };

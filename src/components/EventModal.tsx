@@ -29,7 +29,6 @@ const EventModal = () => {
   // Submit function for New Event Addition
 
   const handleSubmit = () => {
-    console.log(newEvent);
     // Check for the object that any input is not empty string or empty array
     if (
       !Object.values(newEvent).every((value) =>

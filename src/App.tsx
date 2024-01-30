@@ -8,6 +8,7 @@ import EventModal from "./components/EventModal";
 import NewsModal from "./components/NewsModal";
 import { useAppSelector } from "./hooks/reduxHooks";
 import { Disclosure, Transition } from "@headlessui/react";
+import { Toaster } from "react-hot-toast";
 
 //! Navbar Component
 
@@ -130,6 +131,7 @@ function App() {
 
   return (
     <>
+      <Toaster />
       <EventModal />
       <NewsModal />
       <main className="bg-background font-display ">

@@ -37,7 +37,7 @@ const eventSlice = createSlice({
     deleteEventSuccess: (state, action: PayloadAction<string>) => {
       state.isFetching = false;
       state.isError = false;
-      state.events = state.events.filter((e) => e._id === action.payload);
+      state.events = state.events.filter((e) => e._id !== action.payload);
     },
   },
 });

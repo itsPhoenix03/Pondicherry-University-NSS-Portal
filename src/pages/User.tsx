@@ -10,6 +10,7 @@ import UserCertificates from "../components/UserComponents/UserCertificates";
 import UpdateAUser from "../components/AdminComponents/UpdateAUser";
 import ControlPanel from "../components/AdminComponents/ControlPanel";
 import GetAUser from "../components/AdminComponents/GetAUser";
+import toast from "react-hot-toast";
 
 //! Candidate Component
 
@@ -193,7 +194,15 @@ const User = () => {
   const dispatch = useAppDispatch();
 
   const handleLogout = (_id: string) => {
-    if (_id) dispatch(logout());
+    if (_id) {
+      dispatch(logout());
+      toast.success("You are successfully logged out!", {
+        icon: "👋🏼",
+        style: {
+          textAlign: "center",
+        },
+      });
+    }
   };
 
   const currentUser = useAppSelector((state) => state.profile.currentUser);

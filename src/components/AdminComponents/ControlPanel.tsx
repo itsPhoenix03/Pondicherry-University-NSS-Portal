@@ -1,10 +1,9 @@
-//TODO: option to update the sign up form link, excel sheet change
-
 import { useRef } from "react";
 import { useAppSelector } from "../../hooks/reduxHooks";
 import { updateSignUpFormLink } from "../../redux/slices/adminActionsSlice";
 
 const ControlPanel = () => {
+  // TODO: Fix the registration link update and create a new code snippet content for copying to the clipboard
   // Ref for link input
   const linkRef = useRef<HTMLInputElement>(null);
 

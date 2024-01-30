@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import { publicRequest } from "../../requestMethods";
 import { actionFailure, actionSuccess } from "../slices/adminActionsSlice";
 import { userFailure, userFetching } from "../slices/profileSlice";
@@ -34,7 +35,9 @@ export const adminCandidateUpdate = async (
 
     // Success and returning the data
     // dispatch(userLoginSuccess({...updateUserProps }));
+    toast.success("Candidate Information Updated");
   } catch (error) {
     dispatch(userFailure());
+    toast.error("Oops! Something went wrong :/");
   }
 };

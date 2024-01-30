@@ -18,7 +18,8 @@ const Events = () => {
   //Fetch all events
   useEffect(() => {
     fetchAllEvents(dispatch);
-  });
+    console.log("render");
+  }, [dispatch]);
 
   // Modal Hook
   const eventModal = useEventModal();

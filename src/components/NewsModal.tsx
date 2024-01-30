@@ -10,6 +10,7 @@ import {
 import app from "../firebase";
 import { useAppDispatch } from "../hooks/reduxHooks";
 import { addNews } from "../redux/API Calls/newsAPICalls";
+import toast from "react-hot-toast";
 
 //Type for News Article Object
 type newNewsArticleObj = {
@@ -83,6 +84,8 @@ const NewsModal = () => {
 
         const uploadTask = uploadBytesResumable(storageRef, file);
 
+        const toastId = toast.loading("Uploading article image...");
+
         await uploadTask.on(
           "state_changed",
           (snapshot) => {
@@ -106,6 +109,9 @@ const NewsModal = () => {
           (error) => {
             // Handle unsuccessful uploads
             console.log(error.message);
+            toast.error("Oops! Article image can't be uploaded", {
+              id: toastId,
+            });
           },
           () => {
             // Handle successful uploads on complete
@@ -117,6 +123,10 @@ const NewsModal = () => {
                   image: downloadURL,
                 }));
 
+                toast.success("Article image uploaded", {
+                  id: toastId,
+                });
+
                 // Changing the disable state
                 setDisable(false);
               }
@@ -126,6 +136,7 @@ const NewsModal = () => {
       }
     } catch (error) {
       console.log(error);
+      toast.error("Oops! Something went wrong :/");
     }
 
     // ||||||||||||||||||||||||||||||||||||||||||||||||||
